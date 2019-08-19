@@ -2,12 +2,31 @@
 <html>
 
 <head>
-
+	<link rel="stylesheet" href="style.css">
+	<!-- <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" /> -->
+	<script src="popup.js" charset="utf-8"></script>
+	<script src="jquery.min.js" charset="utf-8"></script>
+	<script src="firebaseui.js" charset="utf-8"></script>
 </head>
 
 <body>
-    <button>Temp</button>
-    <script src="popup.js"></script>
+	<div class="header">
+			<h1>GitLance</h1>
+	</div>
+	<!-- <div id="firebaseui-auth-container"></div>
+	<div id="loader">Loading...</div> -->
+
+  <label>Username</label>
+	<br>
+	<input type="text" name="" value="">
+	<br>
+	<label>Password</label>
+	<br>
+	<input type="password" name="" value="">
+	<div class="footer">
+		<button type="button" name="button">Login</button>
+		<button type="button" name="button">Forgot password</button>
+	</div>
 </body>
 
 </html>
