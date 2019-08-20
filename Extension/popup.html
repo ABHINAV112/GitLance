@@ -4,9 +4,9 @@
 <head>
 	<link rel="stylesheet" href="style.css">
 	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-	
+
 	<script src="jquery.min.js" charset="utf-8"></script>
-	
+
 </head>
 
 <body>
@@ -15,6 +15,15 @@
 	</div>
 	<div id="firebaseui-auth-container"></div>
 	<div id="loader">Loading...</div>
+	<div class="logged hide">
+		<p id="loggedIn"></p>
+		<button class="button" id="logoutButton">
+	  	<img id="userImage" src="https://i0.wp.com/afa.org.sg/wordpress/wp-content/uploads/2014/05/icon-user-default-copy.png?ssl=1">
+
+	  	<div class="logout">LOGOUT</div>
+		</button>
+	</div>
+
 
   <!-- <label>Username</label>
 	<br>

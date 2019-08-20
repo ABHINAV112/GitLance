@@ -1,6 +1,41 @@
 // running the main function during the loading of the page
-main();
+var loginData;
 
+$(document).ready(function(){
+
+    recursive();
+
+})
+
+function changed(){
+		try{
+				var header = document.getElementById("js-issues-toolbar");
+				var target = header.firstElementChild.firstElementChild.children[1];
+				for (var i = 0; i<target.children.length;i++)
+				{
+						var currNode = target.children[i];
+						if (currNode.innerText.trim()=="Bounty")
+						{
+								return;
+						}
+				}
+				if (loginData)
+				{
+					main();
+				}
+
+		}
+		catch(err){
+				return;
+		}
+}
+function recursive(){
+		setTimeout(function(){
+				loginData = localStorage.getItem("gitLanceUser");
+				changed();
+				recursive();
+		},1500)
+}
 // // to detect changes on the github page because it doesn't reload the entire page
 // window.addEventListener("hashchange", function () {
 //     console.log("hash changed");
@@ -13,22 +48,22 @@ function main() {
     var regexOperation = !!urlReg.exec(url);
 
     if (regexOperation) {
-
+        console.log("here lol");
         var bountyStringHeading = `<details class="details-reset details-overlay select-menu d-inline-block">
         <summary class="btn-link" aria-haspopup="menu">
         Bounty
         <span></span>
         </summary>
         </details>`;
-        var header = document.getElementsByClassName('Box')[2].children[0];
+        var header = document.getElementById("js-issues-toolbar");
         var target = header.firstElementChild.firstElementChild.children[1];
-        var container = document.getElementsByClassName('Box')[2].children[1].children[0];
+        // var container = document.getElementsByClassName('Box')[2].children[1].children[0];
         var bountyHeadingNode = $.parseHTML(bountyStringHeading)[0];
         target.insertBefore(bountyHeadingNode, target.children[target.children.length - 1]);
 
-        var issues = container.children;
+        var issues = header.parentElement.children[1].children[0].children;
 
-
+        console.log(issues);
         // to be retrieved from data base
         var bounties = [];
         for (let i = 0; i < issues.length; i++)bounties[i] = i * 100;
