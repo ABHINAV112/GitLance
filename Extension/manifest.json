@@ -5,7 +5,8 @@
     "permissions": [
         "activeTab",
         "declarativeContent",
-        "storage"
+        "storage",
+        "*://apis.google.com/*"
     ],
     "browser_action": {
         "default_popup": "popup.html",
@@ -30,5 +31,6 @@
             ]
         }
     ],
-    "manifest_version": 2
+    "manifest_version": 2,
+    "content_security_policy":"script-src 'self' https://apis.google.com"
 }
