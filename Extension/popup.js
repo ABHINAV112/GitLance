@@ -17,7 +17,7 @@ var uiConfig = {
       // or whether we leave that to developer to handle.
 			localStorage.setItem("gitLanceUser",JSON.stringify(authResult));
 			chrome.tabs.executeScript(null,{code:'localStorage.setItem("gitLanceUser",JSON.stringify('+JSON.stringify(authResult)+'))'});
-      console.log(authResult);
+      chrome.tabs.executeScript(null,{code:'console.log("successfully logged in")'});
       return true;
     },
     uiShown: function() {

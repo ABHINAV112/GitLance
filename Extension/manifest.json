@@ -15,7 +15,9 @@
     "icons": {},
     "background": {
         "scripts": [
-            "background.js"
+            "background.js",
+						"firebase.min.js",
+						"firestore.min.js"
         ],
         "persistent": false
     },
@@ -26,7 +28,9 @@
             ],
             "js": [
                 "jquery.min.js",
-                "content.js"
+                "content.js",
+								"firebase.min.js",
+								"firestore.min.js"
             ]
         }
     ],
