@@ -5,7 +5,7 @@ import Tile from '../layout/Tile'
 
 class Dashboard extends Component {
     render() {
-        return(
+        return (
             <div className="container">
                 <div className="row">
                     <div className="col m3">

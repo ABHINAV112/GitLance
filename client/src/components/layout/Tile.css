@@ -1,11 +1,9 @@
 .card{
 
-    background-color : #ef9a9a;
+    background: #828282;
     border-radius: 15px;
-
     width: 225px;
-    height: 300px;
-
+    height: 335px;
     padding-top : 5px;
     padding-right : 10px;
     padding-left : 10px;
@@ -19,16 +17,43 @@
 
     width: 75px;
     height: 75px;
-
-    /* Gray 5 */
-
     background: #E0E0E0;
     border-radius: 10px;
-
 
 }
 
 .description{
-    color:black;
+
     padding-left: 10px;
+}
+
+.horizontal{
+
+    color : white;
+    display: inline;
+    padding: 10px;
+    
+}
+
+.ratings{
+
+    background: #F2994A;
+    padding: 7%;
+    border-radius: 10px;
+    width: 92px;
+    height: 35px;
+    vertical-align: middle;
+    color: white;
+}
+
+.apply{
+
+    background: #EB5757;
+    border-radius: 10px;
+    padding: 7%;
+    width: 100px;
+    height: 35px;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
 }
