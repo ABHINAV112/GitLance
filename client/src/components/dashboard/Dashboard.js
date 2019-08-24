@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LeftPanel from '../layout/LeftPanel';
 import Notification from './Notification';
+import Tile from '../layout/Tile'
 
 class Dashboard extends Component {
     render() {
@@ -11,7 +12,7 @@ class Dashboard extends Component {
                         <LeftPanel />
                     </div>
                     <div className="col m7 offset-m1">
-                        <Notification />
+                        <Tile />
                     </div>
                 </div>
             </div>
