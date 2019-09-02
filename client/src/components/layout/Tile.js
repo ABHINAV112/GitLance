@@ -14,7 +14,9 @@ class Tile extends Component {
                             <h6 className="center-align white-text pos-header">ROLE</h6>
                         </div>
                         <div className="col m3">
-                            <i className="material-icons right white-text pos-bookmark">bookmark_border</i>
+                            <button className="btn-floating btn-flat waves-effect waves-dark">
+                                <i className="material-icons right white-text pos-bookmark">bookmark_border</i>
+                            </button>
                         </div>
                     </div>
                     <hr />

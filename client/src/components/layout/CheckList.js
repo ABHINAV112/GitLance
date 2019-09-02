@@ -11,13 +11,13 @@ class CheckList extends Component {
     }
 
 
-    render() {
+    render(props) {
         return (
             <div>
                 <label>
                     <CheckBox
                         checked={this.state.checked}
-                        onChange={this.handleCheckboxChange}
+                        onChange={this.props.change}
                     />
                     <span className="white-text">{this.props.name}</span>
                 </label>

@@ -10,7 +10,7 @@ class LeftPanel extends Component {
             <div className="card-panel border-correction teal">
                 <h6 className="center-align white-text">Skill</h6>
                 <hr />
-                <CheckList name="Python" />
+                <CheckList name="Python" change={this.props.checkItem} />
             </div>
         )
     }

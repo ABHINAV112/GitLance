@@ -9,6 +9,12 @@ const skill = {
 }
 
 class Dashboard extends Component {
+    constructor() {
+        super();
+        this.state = {
+            itemChecked: {},
+        };
+    }
     render() {
         return (
             <div className="container">
