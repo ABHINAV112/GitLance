@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ScoreBar from './ScoreBar';
+import { Progress } from 'react-sweet-progress';
+import "react-sweet-progress/lib/style.css";
 
 class ScoreCard extends Component {
     render(props) {
@@ -11,29 +12,41 @@ class ScoreCard extends Component {
                             <div className="col m5">
                                 <h5>Run Time</h5>
                             </div>
-                            <div className="col m7">
-                                <ScoreBar percentage='25%' color='red' />
+                            <div className="col m5">
+                                <div className="progress-align">
+                                    <Progress percent={this.props.runtime} />
+                                </div>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col m5">
                                 <h5>Memory</h5>
                             </div>
-                            <div className="col m7">
-                                <ScoreBar percentage='25%' color='red' />
+                            <div className="col m5">
+                                <div className="progress-align">
+                                    <Progress percent={this.props.memory} />
+                                </div>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col m5">
                                 <h5>Efficiency</h5>
                             </div>
-                            <div className="col m7">
-                                <ScoreBar percentage='25%' color='red' />
+                            <div className="col m5">
+                                <div className="progress-align">
+                                    <Progress percent={this.props.efficiency} />
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className="col m5">
                         <h4>Overall Score</h4>
+                        <div className="circle-align">
+                            <Progress
+                                type="circle"
+                                percent={this.props.overall}
+                            />
+                        </div>
                     </div>
                 </div>
             </div >

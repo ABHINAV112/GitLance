@@ -1,89 +1,53 @@
 import React, { Component } from 'react';
-import UpProbTile from '../components/UpProbTile';
+import UpProbTile from '../components/layout/UpProbTile';
 import { BrowserRouter } from 'react-router-dom';
 
-const a = [
+
+var request = require("request");
+const axios = require("axios");
+var options = {
+    method: 'GET',
+    url: 'https://git-lance.firebaseapp.com/api/solve/bounty',
+    headers:
     {
-        title: "Title",
-        description: "XXXXX XXXX XXXXX XXXX XXX XXXX XXXXXX XXXXXX",
-        score: "22",
-        submissions: "3",
-        pay: "10,000"
+        'Postman-Token': '2b44ee86-0d06-441e-8b57-e348efc73cff',
+        'cache-control': 'no-cache'
     },
-    {
-        title: "Title",
-        description: "XXXXX XXXX XXXXX XXXX XXX XXXX XXXXXX XXXXXX",
-        score: "22",
-        submissions: "3",
-        pay: "10,000"
-    },
-    {
-        title: "Title",
-        description: "XXXXX XXXX XXXXX XXXX XXX XXXX XXXXXX XXXXXX",
-        score: "22",
-        submissions: "3",
-        pay: "10,000"
-    },
-    {
-        title: "Title",
-        description: "XXXXX XXXX XXXXX XXXX XXX XXXX XXXXXX XXXXXX",
-        score: "22",
-        submissions: "3",
-        pay: "10,000"
-    },
-    {
-        title: "Title",
-        description: "XXXXX XXXX XXXXX XXXX XXX XXXX XXXXXX XXXXXX",
-        score: "22",
-        submissions: "3",
-        pay: "10,000"
-    },
-    {
-        title: "Title",
-        description: "XXXXX XXXX XXXXX XXXX XXX XXXX XXXXXX XXXXXX",
-        score: "22",
-        submissions: "3",
-        pay: "10,000"
-    },
-    {
-        title: "Title",
-        description: "XXXXX XXXX XXXXX XXXX XXX XXXX XXXXXX XXXXXX",
-        score: "22",
-        submissions: "3",
-        pay: "10,000"
-    },
-    {
-        title: "Title",
-        description: "XXXXX XXXX XXXXX XXXX XXX XXXX XXXXXX XXXXXX",
-        score: "22",
-        submissions: "3",
-        pay: "10,000"
-    },
-    {
-        title: "Title",
-        description: "XXXXX XXXX XXXXX XXXX XXX XXXX XXXXXX XXXXXX",
-        score: "22",
-        submissions: "3",
-        pay: "10,000"
-    }
-]
+    async: false
+};
+
 
 class Home extends Component {
+    state = {
+        data: []
+    }
+    componentDidMount() {
+        axios.get("https://git-lance.firebaseapp.com/api/solve/bounty").then((res) => {
+            var data = res.data.records;
+            this.setState({ data });
+        })
+
+    }
     render() {
         return (
             <BrowserRouter>
                 <div className="container">
                     <h4>Uploads</h4>
                     <ul className="list-container">
-                        {a.map(i => {
-                            return (<li className="list-item"><UpProbTile
-                                title={i.title}
-                                description={i.description}
-                                score={i.score}
-                                submissions={i.submissions}
-                                pay={i.pay}
-                            /></li>)
-                        })}
+                        {
+                            this.state.data.map(i => {
+                                console.log(i);
+                                var currSubLength;
+
+                                return (<li className="list-item"><UpProbTile
+                                    title={i.bountyName}
+                                    description={i.creatorName}
+                                    submissions={0}
+                                    pay={i.bountyValue}
+                                /></li>
+                                );
+                            })
+                        }
                     </ul>
                 </div>
             </BrowserRouter >
@@ -91,4 +55,8 @@ class Home extends Component {
     }
 }
 
+
+
 export default Home;
+
+

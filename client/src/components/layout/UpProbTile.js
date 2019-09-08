@@ -5,7 +5,7 @@ class UpProbTile extends Component {
     render(props) {
         return (
             <div className="container">
-                <div className="card-panel teal tile white-text card">
+                <div className="card-panel teal tile white-text card hoverable">
                     <h5>{this.props.title}</h5>
                     <div className="description">
                         <h6>Description:</h6>

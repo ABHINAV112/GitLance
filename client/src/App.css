@@ -20,10 +20,10 @@
     overflow: auto;
 }
 
-.description{
+/* .description{
     overflow-y: auto;
     height: 80px;
-}
+} */
 
 .list-container{
     display: flex;
@@ -55,3 +55,12 @@
     background: rgb(255, 0,0);
     border-radius: 10px;
 }
+
+.progress-align{
+    padding-top: 12%;
+}
+
+.circle-align{
+    padding-left: 9%;
+}
+
