@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { signIn } from '../../store/actions/authActions'
+import { signIn, signInWithGithub } from '../../store/actions/authActions'
 import { Redirect } from 'react-router-dom'
+
 
 class SignIn extends Component {
     state = {
@@ -20,6 +21,12 @@ class SignIn extends Component {
         this.props.signIn(this.state);
     }
 
+    handleLogInWithGithub = (e) => {
+        e.preventDefault();
+        this.props.signInWithGithub();
+    }
+
+
     render() {
         const { auth } = this.props
         if (auth.uid) return <Redirect to='/home' />
@@ -37,8 +44,13 @@ class SignIn extends Component {
                         <label htmlFor="password">Password</label>
                         <input type="password" id="password" onChange={this.handleChange} />
                     </div>
-                    <div className="input-field">
-                        <button className="btn teal lighten-1 z-depth-0 center-align">Login</button>
+                    <div className="row">
+                        <div className="input-field col m6">
+                            <button className="btn teal lighten-1 z-depth-0 center-align">Login</button>
+                        </div>
+                        <div onClick={this.handleLogInWithGithub} className="input-field col m6">
+                            <button className="btn teal lighten-1 z-depth-0 center-align">Github</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -54,7 +66,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        signIn: (creds) => dispatch(signIn(creds))
+        signIn: (creds) => dispatch(signIn(creds)),
+        signInWithGithub: () => dispatch(signInWithGithub())
     }
 }
 

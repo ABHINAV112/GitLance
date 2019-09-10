@@ -1,21 +1,93 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom';
+import history from '../../history'
 
+var redirect = false;
 class JobUploadForm extends Component {
     state = {
-        title: "",
-        description: "",
-        pay: ""
+        problemHeading: "",
+        problemDescription: "",
+        pay: "",
+        inputFile: "",
+        outputFile: "",
+        redirect: false
     }
 
     handleChange = (e) => {
-        console.log(e)
+        this.setState({
+            [e.target.id]: e.target.value,
+        })
     }
+
+    onChangeHandler = (e) => {
+        this.setState({
+            [e.target.id]: e.target.files[0]
+        })
+    }
+
+    renderRedirect = () => {
+        // this.setState({
+        //     redirect: true
+        // })
+
+    }
+
 
     handleSubmit = (e) => {
-        console.log(e)
+        e.preventDefault();
+
+        const { auth } = this.props;
+        var uploadData = this.state;
+        uploadData.creatorId = auth.uid;
+        uploadData.creatorName = auth.displayName;
+        console.log("upload data", uploadData);
+        var request = require("request");
+        var options = {
+            method: 'POST',
+            url: 'https://git-lance.firebaseapp.com/api/upload/uploadJob',
+            headers:
+                { 'Content-Type': 'application/json' },
+            body: uploadData,
+            json: true
+        };
+        var txtReg = /(.*?).txt/g;
+        var outRes = uploadData.outputFile.name.search(txtReg);
+        if (outRes === -1) {
+            alert("invalid output file!")
+            return;
+        }
+        var inRes = uploadData.inputFile.name.search(txtReg);
+        if (inRes === -1) {
+            alert("invalid input file!");
+            return;
+        }
+        request(options, function (error, response, body) {
+            console.log(body);
+            var firebase = require("firebase");
+            var storage = firebase.app().storage("gs://git-lance.appspot.com");
+            var storageRef = storage.ref();
+            var userRef = storageRef.child(uploadData.creatorId)
+            var jobRef = userRef.child(body.jobId);
+            var inputRef = jobRef.child('input');
+            var outputRef = jobRef.child('output');
+            outputRef.put(uploadData.outputFile);
+            inputRef.put(uploadData.inputFile);
+            // this.renderRedirect();
+            // redirect = true;
+            history.push('/home')
+            window.location.reload()
+        });
     }
 
-    render() {
+    render(state) {
+        const { auth } = this.props;
+        if (!auth.uid) return <Redirect to='/signin' />
+        // if (redirect) {
+        //     console.log("gonna redirect biatchh");
+        //     return <Redirect to='/home' />
+        // }
+
         return (
             <div className="container">
                 <form onSubmit={this.handleSubmit} className="white">
@@ -23,12 +95,12 @@ class JobUploadForm extends Component {
                         Job Upload Form
                     </h5>
                     <div className="input-field">
-                        <label htmlFor="title">Title</label>
-                        <input type="text" id="title" onChange={this.handleChange} />
+                        <label htmlFor="problemHeading">problemHeading</label>
+                        <input type="text" id="problemHeading" onChange={this.handleChange} />
                     </div>
                     <div className="input-field">
-                        <label htmlFor="description">Description</label>
-                        <input type="text" id="description" onChange={this.handleChange} />
+                        <label htmlFor="problemDescription">problemDescription</label>
+                        <input type="text" id="problemDescription" onChange={this.handleChange} />
                     </div>
                     <div className="input-field">
                         <label htmlFor="pay">Pay</label>
@@ -37,11 +109,11 @@ class JobUploadForm extends Component {
                     <div className="row">
                         <div className="input-field col m6">
                             <label >Input Test File</label>
-                            <input type="file" id="input-test-file" onChange={this.handleChange} />
+                            <input type="file" id="inputFile" onChange={this.onChangeHandler} />
                         </div>
                         <div className="input-field col m6">
                             <label>Output Test File</label>
-                            <input type="file" id="output-test-file" onChange={this.handleChange} />
+                            <input type="file" id="outputFile" onChange={this.onChangeHandler} />
                         </div>
                     </div>
                     <div className="input-field">
@@ -53,4 +125,10 @@ class JobUploadForm extends Component {
     }
 }
 
-export default JobUploadForm;
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth
+    }
+}
+
+export default connect(mapStateToProps)(JobUploadForm);

@@ -4,19 +4,21 @@ import { BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
-
 const axios = require("axios");
-
-
 
 class Home extends Component {
     state = {
-        data: []
+        data: [],
+        data2: []
     }
     componentDidMount() {
         axios.get("https://git-lance.firebaseapp.com/api/solve/bounty").then((res) => {
             var data = res.data.records;
             this.setState({ data });
+        })
+        axios.get("https://git-lance.firebaseapp.com/api/solve/problems").then((res) => {
+            var data2 = res.data.records;
+            this.setState({ data2 });
         })
 
     }
@@ -26,7 +28,7 @@ class Home extends Component {
         return (
             <BrowserRouter>
                 <div className="container">
-                    <h4>Uploads</h4>
+                    <h4>Issues</h4>
                     <ul className="list-container">
                         {
                             this.state.data.map(i => {
@@ -36,6 +38,22 @@ class Home extends Component {
                                     description={i.creatorName}
                                     submissions={0}
                                     pay={i.bountyValue}
+                                /></li>
+                                );
+                            })
+                        }
+                    </ul>
+                    <h4>Problems</h4>
+                    <ul className="list-container">
+                        {
+                            this.state.data2.map(i => {
+                                console.log(i);
+                                return (<li className="list-item"><UpProbTile
+                                    title={i.problemHeading}
+                                    description={i.problemDescription}
+                                    score={i.creatorName}
+                                    submissions={Object.keys(i.submissions).length}
+                                    pay={i.pay}
                                 /></li>
                                 );
                             })

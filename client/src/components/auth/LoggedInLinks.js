@@ -32,7 +32,7 @@ const LoggedInLinks = (props) => {
                         <i className="material-icons right">arrow_drop_down</i>
                     </a>
                 }>
-                    <NavItem href="/home">home</NavItem>
+                    <NavItem href="/upload">home</NavItem>
                     <NavItem href="/solve">Solve</NavItem>
                 </Dropdown>
             </li>
@@ -40,7 +40,7 @@ const LoggedInLinks = (props) => {
                 <Dropdown trigger={
                     <img src="https://i.pravatar.cc/150?img=3" className="btn btn-floating" />
                 }>
-                    <NavItem href="/home">My Profile</NavItem>
+                    <NavItem href="/profile">My Profile</NavItem>
                     <NavItem onClick={props.signOut}>Log Out</NavItem>
                 </Dropdown>
             </li>

@@ -47,6 +47,7 @@ class ScoreCard extends Component {
                                 percent={this.props.overall}
                             />
                         </div>
+                        <button className="waves-effect waves-light btn right">Submit</button>
                     </div>
                 </div>
             </div >
