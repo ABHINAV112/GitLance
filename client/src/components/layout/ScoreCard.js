@@ -9,6 +9,7 @@ class ScoreCard extends Component {
                 <div className="row">
                     <div className="col m7">
                         <div className="row">
+                            <h4>{this.props.title}</h4>
                             <div className="col m5">
                                 <h5>Run Time</h5>
                             </div>

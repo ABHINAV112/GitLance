@@ -21,6 +21,13 @@ import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
 import firebaseConfig from './config/firebaseConfig'
 import Upload from './pages/Upload';
 import history from './history'
+import Problem from './pages/Problem'
+import Issues from './pages/Issues';
+import SolveIssues from './pages/SolveIssues';
+import SolveProblem from './pages/SolveProblem';
+import ProblemUp from './pages/ProblemSubs';
+import Uploaded from './pages/Uploaded';
+
 
 const store = createStore(rootReducer,
     compose(
@@ -37,12 +44,18 @@ class Routing extends React.Component {
                 <Navbar />
                 <div>
                     <Route exact path="/" component={Landing} />
+                    <Route path="/issues" component={Issues} />
                     <Route path="/signin" component={SignIn} />
                     <Route path="/signup" component={SignUp} />
                     <Route path="/home" component={Home} />
                     <Route path="/profile" component={Profile} />
                     <Route path="/upload" component={Upload} />
                     <Route path="/solve" component={Solve} />
+                    <Route path="/problem" component={Problem} />
+                    <Route path="/solissue" component={SolveIssues} />
+                    <Route path="/solproblem" component={SolveProblem} />
+                    <Route path="/subproblem" component={ProblemUp} />
+                    <Route path="/uploaded" component={Uploaded} />
                 </div>
             </Router>
         )

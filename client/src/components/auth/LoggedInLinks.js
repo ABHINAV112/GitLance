@@ -18,8 +18,9 @@ const LoggedInLinks = (props) => {
                             <i className="material-icons right">arrow_drop_down</i>
                         </a>
                     }>
-                        <NavItem href="/home">home</NavItem>
-                        <NavItem href="/solve">Solve</NavItem>
+                        <NavItem href="/home">Feed</NavItem>
+                        <NavItem href="/issues">Issues</NavItem>
+                        <NavItem href="/problem">Problem</NavItem>
                     </Dropdown>
                 </div>
             </li>
@@ -32,8 +33,23 @@ const LoggedInLinks = (props) => {
                         <i className="material-icons right">arrow_drop_down</i>
                     </a>
                 }>
-                    <NavItem href="/upload">home</NavItem>
-                    <NavItem href="/solve">Solve</NavItem>
+                    <NavItem href="/uploaded">Feed</NavItem>
+                    <NavItem href="/upload">New Job</NavItem>
+                    <NavItem href="/">Issues</NavItem>
+                    <NavItem href="/home">Problems</NavItem>
+                </Dropdown>
+            </li>
+            <li>
+                <Dropdown trigger={
+                    <a className="grey darken-3">
+                        <h6 className="nav-header left">
+                            Submissions
+                                    </h6>
+                        <i className="material-icons right">arrow_drop_down</i>
+                    </a>
+                }>
+                    <NavItem href="/home">Issues</NavItem>
+                    <NavItem href="/solve">Problem</NavItem>
                 </Dropdown>
             </li>
             <li>

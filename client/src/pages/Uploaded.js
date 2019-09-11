@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom'
 
 const axios = require("axios");
 
-class Home extends Component {
+class Uploaded extends Component {
     state = {
         data: [],
         data2: []
@@ -36,12 +36,12 @@ class Home extends Component {
         return (
             <BrowserRouter>
                 <div className="container">
-                    <a href="/issues"><h4> Issues</h4></a>
+                    <a href="/issues"><h4>Uploaded Issues</h4></a>
                     <ul className="list-container">
                         {
                             this.state.data.map(i => {
                                 console.log(i);
-                                return (<li className="list-item"><a href="/solissue"><UpIssueTile
+                                return (<li className="list-item"><a href="/"><UpIssueTile
                                     title={i.bountyName}
                                     name={i.creatorName}
                                     repo={i.Repo}
@@ -51,12 +51,12 @@ class Home extends Component {
                             })
                         }
                     </ul>
-                    <a href="/problem"><h4>Problems</h4></a>
+                    <a href="/problem"><h4>Uploaded Problems</h4></a>
                     <ul className="list-container">
                         {
                             this.state.data2.map(i => {
                                 console.log(i);
-                                return (<li className="list-item"><a href="/solproblem"><UpProbTile
+                                return (<li className="list-item"><a href="/subproblem"><UpProbTile
                                     title={i.problemHeading}
                                     description={i.problemDescription}
                                     name={i.creatorName}
@@ -80,6 +80,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Uploaded);
 
 
