@@ -100,7 +100,7 @@ module.exports = () => {
   router.post("/resolve/issue", (req, res) => {return res.send("not implemented")});
   router.post("/resolve/problem", (req, res) => {return res.send("not implemented")});
 
-  router.post("/uploadedProblems",(req,res)=>{
+  router.post("/uploadedProblems",async(req,res)=>{
     var userId = req.body.userId;
     // let db = admin.firestore();
     var collection = await db.collection("bountyData").get();
@@ -109,9 +109,11 @@ module.exports = () => {
       var currDocData = doc.data();
       for (currRepo in currDocData) {
         for (var issue in currDocData[currRepo]) {
-          if(currDocData[currRepo].creator==userId){
+
+          if(currDocData[currRepo][issue].creator===userId){
             currDocData[currRepo][issue]["Repo"] = currRepo;
             currDocData[currRepo][issue]["issue"] = issue;
+            currDocData[currRepo][issue]["creator"] = undefined;
             output.records.push(currDocData[currRepo][issue]);
           }
         }

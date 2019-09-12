@@ -6,7 +6,8 @@ const admin = require("firebase-admin");
 
 var db = admin.firestore();
 module.exports = () => {
-  router.get("/bounty", async (req, res) => {
+  router.post("/bounty", async (req, res) => {
+    var userId = req.body.userId;
     // bounty data collection manipulation
     var collection = await db.collection("bountyData").get();
     var output = { records: [] };
@@ -14,9 +15,11 @@ module.exports = () => {
       var currDocData = doc.data();
       for (currRepo in currDocData) {
         for (var issue in currDocData[currRepo]) {
-          currDocData[currRepo][issue]["Repo"] = currRepo;
-          currDocData[currRepo][issue]["issue"] = issue;
-          output.records.push(currDocData[currRepo][issue]);
+          if(currDocData[currRepo][issue].creator!==userId){
+            currDocData[currRepo][issue]["Repo"] = currRepo;
+            currDocData[currRepo][issue]["issue"] = issue;
+            output.records.push(currDocData[currRepo][issue]);
+          }
         }
       }
     });
