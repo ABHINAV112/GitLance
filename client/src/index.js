@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import './App.css'
 import './index.css';
 import 'materialize-css';
@@ -28,6 +28,7 @@ import ProblemUp from './pages/subto/ProblemSubs';
 import Uploaded from './pages/uploads/Uploaded';
 import UploadedIssues from './pages/uploads/UploadedIssues';
 import UploadedProblems from './pages/uploads/UploadedProblems';
+import { Router, withRouter } from 'react-router';
 
 
 
@@ -42,25 +43,27 @@ const store = createStore(rootReducer,
 class Routing extends React.Component {
     render() {
         return (
-            <Router history={history}>
+            <BrowserRouter history={history}>
                 <Navbar />
                 <div>
-                    <Route exact path="/" component={Landing} />
-                    <Route path="/issues" component={Issues} />
-                    <Route path="/signin" component={SignIn} />
-                    <Route path="/signup" component={SignUp} />
-                    <Route path="/home" component={FeedSolve} />
-                    <Route path="/profile" component={Profile} />
-                    <Route path="/upload" component={Upload} />
-                    <Route path="/problem" component={Problem} />
-                    <Route path="/solissue" component={SolveIssues} />
-                    <Route path="/solproblem" component={SolveProblem} />
-                    <Route path="/subproblem" component={ProblemUp} />
-                    <Route path="/uploaded" component={Uploaded} />
-                    <Route path="/uploadedissues" component={UploadedIssues} />
-                    <Route path="/uploadedproblems" component={UploadedProblems} />
+                    <Switch>
+                        <Route exact path="/" component={withRouter(Landing)} />
+                        <Route path="/issues" component={withRouter(Issues)} />
+                        <Route path="/signin" component={withRouter(SignIn)} />
+                        <Route path="/signup" component={withRouter(SignUp)} />
+                        <Route path="/home" component={withRouter(FeedSolve)} />
+                        <Route path="/profile" component={withRouter(Profile)} />
+                        <Route path="/upload" component={withRouter(Upload)} />
+                        <Route path="/problem" component={withRouter(Problem)} />
+                        <Route path="/solissue" component={withRouter(SolveIssues)} />
+                        <Route path="/solproblem" component={withRouter(SolveProblem)} />
+                        <Route path="/subproblem" component={withRouter(ProblemUp)} />
+                        <Route path="/uploaded" component={withRouter(Uploaded)} />
+                        <Route path="/uploadedissues" component={withRouter(UploadedIssues)} />
+                        <Route path="/uploadedproblems" component={withRouter(UploadedProblems)} />
+                    </Switch>
                 </div>
-            </Router>
+            </BrowserRouter>
         )
     }
 }

@@ -5,7 +5,6 @@ import { BrowserRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
-const axios = require("axios");
 
 class Uploaded extends Component {
     state = {
@@ -13,14 +12,55 @@ class Uploaded extends Component {
         data2: []
     }
     componentDidMount() {
-        axios.get("https://git-lance.firebaseapp.com/api/solve/bounty").then((res) => {
-            var data = res.data.records;
-            this.setState({ data });
+        // axios.get("https://git-lance.firebaseapp.com/api/solve/bounty").then((res) => {
+        //     var data = res.data.records;
+        //     this.setState({ data });
+        // })
+        // axios.get("https://git-lance.firebaseapp.com/api/solve/problems").then((res) => {
+        //     var data2 = res.data.records;
+        //     this.setState({ data2 });
+        // })
+
+        const { auth } = this.props;
+
+        var fetch = require("node-fetch");
+
+        var options = {
+            method: 'POST',
+            url: 'https://git-lance.firebaseapp.com/api/upload/uploadedIssues',
+            headers:
+            {
+                'Postman-Token': '41582a4d-a65f-40d8-ac5d-ca27b473348d',
+                'cache-control': 'no-cache',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId: auth.uid }),
+            json: true
+        };
+
+        fetch(options.url, options).then((res) => res.json()).then((res) => {
+            var data = res.records;
+            this.setState({ data })
         })
-        axios.get("https://git-lance.firebaseapp.com/api/solve/problems").then((res) => {
-            var data2 = res.data.records;
-            this.setState({ data2 });
+
+        var options = {
+            method: 'POST',
+            url: 'https://git-lance.firebaseapp.com/api/upload/uploadedProblems',
+            headers:
+            {
+                'Postman-Token': '90e98916-3334-4913-9fbf-8242fdd295d1',
+                'cache-control': 'no-cache',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId: auth.uid }),
+            json: true
+        };
+
+        fetch(options.url, options).then((res) => res.json()).then((res) => {
+            var data2 = res.records;
+            this.setState({ data2 })
         })
+
 
     }
 

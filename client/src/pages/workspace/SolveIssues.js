@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import IssueSolution from '../../components/layout/IssueSolution';
 
 class SolveIssues extends Component {
+    componentDidMount() {
+        console.log(this.props.location.data)
+    }
     render() {
         return (
             <div className="container">
                 <IssueSolution
-                    issue="Hi boys! wassups! filler Hi boys! wassups! filler Hi boys! wassups! filler Hi boys! wassups! filler Hi boys! wassups! filler Hi boys! wassups! filler"
-                    repo="abhinav is dumb"
+                    data={this.props.location.data}
                 />
             </div>
         )

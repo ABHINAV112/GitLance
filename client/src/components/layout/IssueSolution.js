@@ -3,11 +3,6 @@ import { connect } from 'react-redux';
 class IssueSolution extends Component {
 
     state = {
-        gitUserName: '',
-        gitRepository: '',
-        issueId: '',
-        solverId: '',
-        solverUserName: '',
         answer: ''
     }
 
@@ -15,18 +10,22 @@ class IssueSolution extends Component {
         this.setState({
             [e.target.id]: e.target.value
         })
+
     }
 
     handleSubmit = (e) => {
         const { auth } = this.props;
 
-        var uploadedSol = this.state;
-        uploadedSol = {
+        var uploadedSol = {
+            gitUserName: this.props.data.gitRepoCreator,
+            gitRepository: this.props.data.Repo,
+            issueId: this.props.data.issue,
             solverId: auth.uid,
-            solverUserName: auth.displayName
+            solverUserName: auth.displayName,
+            answer: this.state.answer
         }
         console.log(uploadedSol)
-        var request = require("request");
+        var fetch = require("node-fetch");
 
         var options = {
             method: 'POST',
@@ -37,7 +36,7 @@ class IssueSolution extends Component {
                 'cache-control': 'no-cache',
                 'Content-Type': 'application/json'
             },
-            body: uploadedSol,
+            body: JSON.stringify(uploadedSol),
             // {
             //     gitUserName: 'Arcadier',
             //     gitRepository: 'Developer-Community-Support',
@@ -48,12 +47,7 @@ class IssueSolution extends Component {
             // }
             json: true
         };
-
-        request(options, function (error, response, body) {
-            if (error) throw new Error(error);
-
-            console.log(body);
-        });
+        fetch(options.url, options)
     }
 
 
@@ -65,10 +59,10 @@ class IssueSolution extends Component {
                         <div className="col m4">
                             <h3>Issue: </h3>
                             <div className="issue-desc">
-                                <h5>{this.props.issue}</h5>
+                                <h5>{this.props.data.bountyName}</h5>
                             </div>
                             <h4>Repo: </h4>
-                            <h5>{this.props.repo}</h5>
+                            <h5>{this.props.data.Repo}</h5>
                         </div>
                         <div className="col m8">
                             <div>

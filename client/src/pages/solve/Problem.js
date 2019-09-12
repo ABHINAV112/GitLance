@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import UpProbTile from '../../components/layout/UpProbTile';
+import { connect } from 'react-redux'
 
 
 class Problem extends Component {
@@ -7,10 +8,32 @@ class Problem extends Component {
         data: []
     }
     componentDidMount() {
-        var axios = require('axios');
-        axios.get("https://git-lance.firebaseapp.com/api/solve/problems").then((res) => {
-            var data = res.data.records;
-            this.setState({ data });
+        // var axios = require('axios');
+        // axios.get("https://git-lance.firebaseapp.com/api/solve/problems").then((res) => {
+        //     var data = res.data.records;
+        //     this.setState({ data });
+        // })
+
+        const { auth } = this.props
+
+        var fetch = require('node-fetch');
+
+        var options = {
+            method: 'POST',
+            url: 'https://git-lance.firebaseapp.com/api/solve/problems',
+            headers:
+            {
+                'Postman-Token': 'db30edf6-fbd6-41ad-acc7-75417ebf0299',
+                'cache-control': 'no-cache',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId: auth.uid }),
+            json: true
+        };
+
+        fetch(options.url, options).then((res) => res.json()).then((res) => {
+            var data = res.records;
+            this.setState({ data })
         })
 
     }
@@ -100,4 +123,10 @@ class Problem extends Component {
     }
 }
 
-export default Problem
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth
+    }
+}
+
+export default connect(mapStateToProps)(Problem)

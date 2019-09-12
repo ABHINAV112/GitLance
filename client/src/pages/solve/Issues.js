@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import UpIssueTile from '../../components/layout/UpIssueTile';
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 
 class Issues extends Component {
@@ -7,10 +9,32 @@ class Issues extends Component {
         data: []
     }
     componentDidMount() {
-        var axios = require('axios');
-        axios.get("https://git-lance.firebaseapp.com/api/solve/bounty").then((res) => {
-            var data = res.data.records;
-            this.setState({ data });
+        // var axios = require('axios');
+        // axios.get("https://git-lance.firebaseapp.com/api/solve/bounty").then((res) => {
+        //     var data = res.data.records;
+        //     this.setState({ data });
+        // })
+
+        const { auth } = this.props;
+
+        var fetch = require('node-fetch');
+
+        var options = {
+            method: 'POST',
+            url: 'https://git-lance.firebaseapp.com/api/solve/bounty',
+            headers:
+            {
+                'Postman-Token': '6f722472-ad24-4388-be60-fad98c77d367',
+                'cache-control': 'no-cache',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId: auth.uid }),
+            json: true
+        };
+
+        fetch(options.url, options).then((res) => res.json()).then((res) => {
+            var data = res.records;
+            this.setState({ data })
         })
 
     }
@@ -68,12 +92,12 @@ class Issues extends Component {
                                         (value, index) => {
                                             return (
                                                 <div className="col m3">
-                                                    <a href="/solissue"><UpIssueTile
+                                                    <Link to={{ pathname: "/solissue", data: value }} > <UpIssueTile
                                                         title={value.bountyName}
                                                         name={value.creatorName}
                                                         repo={value.Repo}
                                                         pay={value.bountyValue}
-                                                    /></a>
+                                                    /> </Link>
                                                 </div>
                                             )
                                         }
@@ -90,4 +114,10 @@ class Issues extends Component {
     }
 }
 
-export default Issues
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth
+    }
+}
+
+export default connect(mapStateToProps)(Issues)
