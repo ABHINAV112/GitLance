@@ -100,7 +100,7 @@ module.exports = () => {
   router.post("/resolve/issue", (req, res) => {return res.send("not implemented")});
   router.post("/resolve/problem", (req, res) => {return res.send("not implemented")});
 
-  router.post("/uploadedProblems",async(req,res)=>{
+  router.post("/uploadedIssues",async(req,res)=>{
     var userId = req.body.userId;
     // let db = admin.firestore();
     var collection = await db.collection("bountyData").get();
@@ -120,6 +120,25 @@ module.exports = () => {
       }
     });
     return res.json(output);
+  });
+
+  router.post("/uploadedProblems", async (req, res) => {
+    var userId = req.body.userId;
+    var output = { records: [] };
+    var collection = await db.collection("jobData").get();
+    collection.forEach(doc => {
+      var currDocData = doc.data();
+      var creatorId = doc.id;
+      if(creatorId===userId){
+        for (var job in currDocData) {
+          var currJob = currDocData[job];
+          currJob["jobId"] = job;
+          currJob["creatorId"] = creatorId;
+          output.records.push(currJob);
+        }
+      }
+    });
+    return res.send(output);
   });
 
   return router;

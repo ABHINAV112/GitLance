@@ -172,17 +172,20 @@ module.exports = () => {
     return res.send("success");
   });
 
-  router.get("/problems", async (req, res) => {
+  router.post("/problems", async (req, res) => {
+    var userId = req.body.userId;
     var output = { records: [] };
     var collection = await db.collection("jobData").get();
     collection.forEach(doc => {
       var currDocData = doc.data();
       var creatorId = doc.id;
-      for (var job in currDocData) {
-        var currJob = currDocData[job];
-        currJob["jobId"] = job;
-        currJob["creatorId"] = creatorId;
-        output.records.push(currJob);
+      if(creatorId!==userId){
+        for (var job in currDocData) {
+          var currJob = currDocData[job];
+          currJob["jobId"] = job;
+          currJob["creatorId"] = creatorId;
+          output.records.push(currJob);
+        }
       }
     });
     return res.send(output);
