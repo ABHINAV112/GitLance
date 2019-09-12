@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import UpProbTile from '../components/layout/UpProbTile';
-import UpIssueTile from '../components/layout/UpIssueTile';
+import UpProbTile from '../../components/layout/UpProbTile';
+import UpIssueTile from '../../components/layout/UpIssueTile';
 import { BrowserRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
@@ -36,7 +36,7 @@ class Uploaded extends Component {
         return (
             <BrowserRouter>
                 <div className="container">
-                    <a href="/issues"><h4>Uploaded Issues</h4></a>
+                    <a href="/uploadedissues"><h4>Uploaded Issues</h4></a>
                     <ul className="list-container">
                         {
                             this.state.data.map(i => {
@@ -51,7 +51,7 @@ class Uploaded extends Component {
                             })
                         }
                     </ul>
-                    <a href="/problem"><h4>Uploaded Problems</h4></a>
+                    <a href="/uploadedproblems"><h4>Uploaded Problems</h4></a>
                     <ul className="list-container">
                         {
                             this.state.data2.map(i => {

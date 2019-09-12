@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ScoreCard from '../components/layout/ScoreCard';
+import ScoreCard from '../../components/layout/ScoreCard';
 
 // this is where we will have all problems uploaded by user
 class ProblemSubs extends Component {

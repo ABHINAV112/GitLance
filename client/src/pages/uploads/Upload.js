@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import JobUploadForm from '../components/layout/JobUploadForm';
+import JobUploadForm from '../../components/layout/JobUploadForm';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 

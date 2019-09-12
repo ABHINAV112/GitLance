@@ -26,12 +26,6 @@ class JobUploadForm extends Component {
         })
     }
 
-    renderRedirect = () => {
-        // this.setState({
-        //     redirect: true
-        // })
-
-    }
 
 
     handleSubmit = (e) => {

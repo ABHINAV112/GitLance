@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import UpProbTile from '../components/layout/UpProbTile';
-import UpIssueTile from '../components/layout/UpIssueTile';
+import UpProbTile from '../../components/layout/UpProbTile';
+import UpIssueTile from '../../components/layout/UpIssueTile';
 import { BrowserRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 const axios = require("axios");
 
-class Home extends Component {
+class FeedSolve extends Component {
     state = {
         data: [],
         data2: []
@@ -80,6 +80,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(FeedSolve);
 
 

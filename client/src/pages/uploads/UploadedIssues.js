@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import UpIssueTile from '../components/layout/UpIssueTile';
+import UpIssueTile from '../../components/layout/UpIssueTile';
 
 
-class Issues extends Component {
+class UploadedIssues extends Component {
     state = {
         data: []
     }
@@ -90,4 +90,4 @@ class Issues extends Component {
     }
 }
 
-export default Issues
+export default UploadedIssues

@@ -1,3 +1,7 @@
+body{
+    height: 100%;
+}
+
 .tile {
     border-radius: 10px;
     width: 225px;
@@ -64,3 +68,20 @@
     padding-left: 9%;
 }
 
+.issuesol{
+    height: 100%;
+}
+
+.textsol{
+    height: 320px;
+}
+
+.card-border{
+    border-radius: 10px;
+}
+
+.issue-desc{
+    width: 100%;
+    height: 100px;
+    overflow-y: scroll;
+}

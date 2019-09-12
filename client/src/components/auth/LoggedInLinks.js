@@ -35,8 +35,8 @@ const LoggedInLinks = (props) => {
                 }>
                     <NavItem href="/uploaded">Feed</NavItem>
                     <NavItem href="/upload">New Job</NavItem>
-                    <NavItem href="/">Issues</NavItem>
-                    <NavItem href="/home">Problems</NavItem>
+                    <NavItem href="/uploadedissues">Issues</NavItem>
+                    <NavItem href="/uploadedproblems">Problems</NavItem>
                 </Dropdown>
             </li>
             <li>
