@@ -1,0 +1,124 @@
+const express = require("express");
+const router = express.Router();
+const admin = require("firebase-admin");
+const functions = require("firebase-functions");
+admin.initializeApp(functions.config().firebase);
+
+var db = admin.firestore();
+
+module.exports = () => {
+  router.post("/uploadJob", async (req, res) => {
+    var jobRequestData = req.body;
+    // console.log(jobRequestData);
+    // API validation
+    var bodyKeys = [
+      "creatorId",
+      "creatorName",
+      "problemHeading",
+      "problemDescription",
+      "pay"
+    ];
+    var run = true;
+    for (var i = 0; i < bodyKeys.length; i++) {
+      if (!jobRequestData[bodyKeys[i]]) {
+        run = false;
+      }
+    }
+    // saving to data base
+    if (!run) {
+      res.status(400);
+      return res.send("Error, invalid json body");
+    }
+    var timeCreated = new Date().getTime();
+    var documentData = await db
+      .collection("jobData")
+      .doc(jobRequestData.creatorId)
+      .get();
+    var newJobData = {
+      active: true,
+      bestSubmissionId: "",
+      createdTime: timeCreated,
+      creatorName: jobRequestData.creatorName,
+      problemHeading: jobRequestData.problemHeading,
+      problemDescription: jobRequestData.problemDescription,
+      pay: jobRequestData.pay,
+      submissions: {}
+    };
+    var currFields;
+    var jobLength = 0;
+    if (documentData.exists) {
+      currFields = documentData.data();
+      // console.log("data already exists",currFields);
+      jobLength = Object.keys(currFields).length;
+      currFields["job_" + String(jobLength + 1)] = newJobData;
+    } else {
+      // console.log("data doesn't already exist");
+      currFields = { job_1: newJobData };
+    }
+    // console.log("data which is going to be stored",currFields);
+    db.collection("jobData")
+      .doc(jobRequestData.creatorId)
+      .set(currFields);
+    return res.send({ jobId: "job_" + String(jobLength + 1) });
+  });
+
+  router.post("/jobSubmission", async (req, res) => {
+    var submissionQuery = req.body;
+    // console.log("jobsubmission", req.body);
+    var documentData = await db
+      .collection("jobData")
+      .doc(submissionQuery.userId)
+      .get();
+    if (!documentData.exists) {
+      res.status(400);
+      return res.send("job doesn't exist");
+    }
+    var jobData = documentData.data()[submissionQuery.jobId];
+    // console.log("jobdata", jobData);
+    var output = { submissions: jobData.submissions };
+    return res.send(output);
+  });
+
+  router.post("/issueSubmission",async(req,res)=>{
+    var submissionQuery = req.body;
+    console.log(submissionQuery);
+    var documentData = await db.collection('bountyData').doc(submissionQuery.gitUserName).get();
+    if(!documentData.exists){
+      res.status(400);
+      return res.send("bounties haven't been uploaded on this repo");
+    }
+    var gitUserData = documentData.data();
+    var output = gitUserData[submissionQuery.gitRepo][submissionQuery.issueId];
+    if(output.submissions){
+      output = output.submissions;
+    }else{
+      output = {submissions:{}};
+    }
+    return res.send(output);
+  })
+
+  router.post("/resolve/issue", (req, res) => {return res.send("not implemented")});
+  router.post("/resolve/problem", (req, res) => {return res.send("not implemented")});
+
+  router.post("/uploadedProblems",(req,res)=>{
+    var userId = req.body.userId;
+    // let db = admin.firestore();
+    var collection = await db.collection("bountyData").get();
+    var output = { records: [] };
+    collection.forEach(doc => {
+      var currDocData = doc.data();
+      for (currRepo in currDocData) {
+        for (var issue in currDocData[currRepo]) {
+          if(currDocData[currRepo].creator==userId){
+            currDocData[currRepo][issue]["Repo"] = currRepo;
+            currDocData[currRepo][issue]["issue"] = issue;
+            output.records.push(currDocData[currRepo][issue]);
+          }
+        }
+      }
+    });
+    return res.json(output);
+  });
+
+  return router;
+};

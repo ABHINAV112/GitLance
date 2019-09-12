@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-
+const uploadRoute = require("./upload");
+const solveRoute = require("./solve");
 module.exports = () => {
-    router.get('/', (req, res) => {
-        return res.json({ 'api': 'working' });
-    });
-    return router;
-}
+  router.use("/upload", uploadRoute());
+  router.use("/solve", solveRoute());
+  return router;
+};
