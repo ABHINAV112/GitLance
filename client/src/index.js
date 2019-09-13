@@ -29,6 +29,7 @@ import Uploaded from './pages/uploads/Uploaded';
 import UploadedIssues from './pages/uploads/UploadedIssues';
 import UploadedProblems from './pages/uploads/UploadedProblems';
 import { Router, withRouter } from 'react-router';
+import Buy from './pages/functional/Buy'
 
 import IssueSubs from './pages/subto/IssueSubs';
 import ProblemSubs from './pages/subto/ProblemSubs';
@@ -69,6 +70,7 @@ class Routing extends React.Component {
                         <Route path="/uploadedproblems" component={withRouter(UploadedProblems)} />
                         <Route path="/issuesub" component={withRouter(SubmittedIssues)} />
                         <Route path="/problemsub" component={withRouter(SubmittedProblem)} />
+                        <Route path="/buy" component={withRouter(Buy)} />
                     </Switch>
                 </div>
             </BrowserRouter>
