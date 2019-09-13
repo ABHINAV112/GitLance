@@ -67,7 +67,7 @@ class UploadedIssues extends Component {
         console.log("Data", rowData)
         return (
             <div className="container">
-                <h4>Issues</h4>
+                <h4>Uploaded Issues</h4>
                 {/* <div className="row">
                     <div className="col m3">
                         <UpIssueTile />

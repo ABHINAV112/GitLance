@@ -67,7 +67,7 @@ class UploadedProblems extends Component {
         console.log("Data", rowData)
         return (
             <div className="container">
-                <h4>Problems</h4>
+                <h4>Uploaded Problems</h4>
                 {/* <div className="row">
                     <div className="col m3">
                         <UpIssueTile />
@@ -97,6 +97,7 @@ class UploadedProblems extends Component {
                                                 submissionsVal = Object.keys(currSubmissions).length;
                                                 scoreVal = currSubmissions[currBestSubmission].scores.total;
                                             }
+                                            console.log(value)
                                             return (
                                                 <div className="col m3">
                                                     <Link to={{

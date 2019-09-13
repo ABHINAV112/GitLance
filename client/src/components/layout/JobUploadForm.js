@@ -11,7 +11,9 @@ class JobUploadForm extends Component {
         pay: "",
         inputFile: "",
         outputFile: "",
-        redirect: false
+        redirect: false,
+        memoryLimit: "",
+        timeLimit: ""
     }
 
     handleChange = (e) => {
@@ -99,6 +101,14 @@ class JobUploadForm extends Component {
                     <div className="input-field">
                         <label htmlFor="pay">Pay</label>
                         <input type="number" id="pay" onChange={this.handleChange} />
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="memoryLimit">Memory in Bytes</label>
+                        <input type="number" id="memoryLimit" onChange={this.handleChange} />
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="timeLimit">Time in Microseconds</label>
+                        <input type="number" id="timeLimit" onChange={this.handleChange} />
                     </div>
                     <div className="row">
                         <div className="input-field col m6">

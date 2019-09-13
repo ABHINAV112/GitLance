@@ -85,7 +85,7 @@ class Uploaded extends Component {
                         })
                     }
                 </ul>
-                <a href="/uploadedproblem"><h4>Uploaded Problems</h4></a>
+                <a href="/uploadedproblems"><h4>Uploaded Problems</h4></a>
                 <ul className="list-container">
                     {
                         this.state.data2.map(i => {

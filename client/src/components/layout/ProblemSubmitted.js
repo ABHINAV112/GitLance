@@ -4,18 +4,19 @@ import "react-sweet-progress/lib/style.css";
 
 class ProblemSubmitted extends Component {
     render(props) {
+        console.log(this.props.data)
         return (
             <div className="card-panel scorecard white-text">
                 <div className="row">
                     <div className="col m7">
                         <div className="row">
-                            <h4>{this.props.title}</h4>
+                            <h4>{this.props.data.problemHeading}</h4>
                             <div className="col m5">
                                 <h5>Run Time</h5>
                             </div>
                             <div className="col m5">
                                 <div className="progress-align">
-                                    <Progress percent={this.props.runtime} />
+                                    <Progress percent={this.props.data.scores.time} />
                                 </div>
                             </div>
                         </div>
@@ -25,7 +26,7 @@ class ProblemSubmitted extends Component {
                             </div>
                             <div className="col m5">
                                 <div className="progress-align">
-                                    <Progress percent={this.props.memory} />
+                                    <Progress percent={this.props.data.scores.memory} />
                                 </div>
                             </div>
                         </div>
@@ -35,7 +36,7 @@ class ProblemSubmitted extends Component {
                             </div>
                             <div className="col m5">
                                 <div className="progress-align">
-                                    <Progress percent={this.props.efficiency} />
+                                    <Progress percent={this.props.data.scores.efficiency} />
                                 </div>
                             </div>
                         </div>
@@ -45,10 +46,9 @@ class ProblemSubmitted extends Component {
                         <div className="circle-align">
                             <Progress
                                 type="circle"
-                                percent={this.props.overall}
+                                percent={this.props.data.scores.total}
                             />
                         </div>
-                        <button className="waves-effect waves-light btn right">Submit</button>
                     </div>
                 </div>
             </div >
