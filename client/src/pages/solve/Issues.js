@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import UpIssueTile from '../../components/layout/UpIssueTile';
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 
 class Issues extends Component {
@@ -42,6 +42,9 @@ class Issues extends Component {
 
 
     render() {
+        const { auth } = this.props;
+        if (!auth.uid) return <Redirect to='/signin' />
+
         var recordsLength = this.state.data.length;
         console.log("Records", recordsLength)
         var rows = Math.ceil(recordsLength / 4);

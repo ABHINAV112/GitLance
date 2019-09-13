@@ -91,14 +91,16 @@ class FeedSolve extends Component {
                     {
                         this.state.data2.map(i => {
                             console.log(i);
-                            return (<li className="list-item"><a href="/solproblem"><UpProbTile
-                                title={i.problemHeading}
-                                description={i.problemDescription}
-                                name={i.creatorName}
-                                score={0}
-                                submissions={Object.keys(i.submissions).length}
-                                pay={i.pay}
-                            /></a></li>
+                            return (<li className="list-item"><Link to={{
+                                pathname: "/solproblem", data: i
+                            }}> <UpProbTile
+                                    title={i.problemHeading}
+                                    description={i.problemDescription}
+                                    name={i.creatorName}
+                                    score={0}
+                                    submissions={Object.keys(i.submissions).length}
+                                    pay={i.pay}
+                                /></Link></li>
                             );
                         })
                     }

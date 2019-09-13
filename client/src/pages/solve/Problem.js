@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import UpProbTile from '../../components/layout/UpProbTile';
 import { connect } from 'react-redux'
+import { Link, Redirect } from 'react-router-dom'
 
 
 class Problem extends Component {
@@ -41,6 +42,8 @@ class Problem extends Component {
 
 
     render() {
+        const { auth } = this.props;
+        if (!auth.uid) return <Redirect to='/signin' />
         var recordsLength = this.state.data.length;
         console.log("Records", recordsLength)
         var rows = Math.ceil(recordsLength / 4);
@@ -99,14 +102,14 @@ class Problem extends Component {
                                             }
                                             return (
                                                 <div className="col m3">
-                                                    <a href="/solproblem"><UpProbTile
+                                                    <Link to={{ pathname: "/solproblem", data: value }}><UpProbTile
                                                         title={value.problemHeading}
                                                         description={value.problemDescription}
                                                         name={value.creatorName}
                                                         score={scoreVal}
                                                         submissions={submissionsVal}
                                                         pay={value.pay}
-                                                    /></a>
+                                                    /></Link>
                                                 </div>
                                             )
                                         }

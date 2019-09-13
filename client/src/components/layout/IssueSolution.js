@@ -54,7 +54,7 @@ class IssueSolution extends Component {
     render() {
         return (
             <div>
-                <div className="card-panel card-border red lighten-2 white-text issuesol">
+                <div className="card-panel card-border teal lighten-2 white-text issuesol">
                     <div className="row">
                         <div className="col m4">
                             <h3>Issue: </h3>
@@ -69,7 +69,7 @@ class IssueSolution extends Component {
                                 <textarea className="white card-border textsol" id="answer" onChange={this.handleChange}>
                                 </textarea>
                             </div>
-                            <button className="right btn card-border" onClick={this.handleSubmit}>Submit</button>
+                            <button className="right btn card-border red" onClick={this.handleSubmit}>Submit</button>
                         </div>
                     </div>
                 </div>

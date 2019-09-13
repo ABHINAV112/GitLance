@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import UpIssueTile from '../../components/layout/UpIssueTile';
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 
 class UploadedIssues extends Component {
@@ -7,10 +9,31 @@ class UploadedIssues extends Component {
         data: []
     }
     componentDidMount() {
-        var axios = require('axios');
-        axios.get("https://git-lance.firebaseapp.com/api/solve/bounty").then((res) => {
-            var data = res.data.records;
-            this.setState({ data });
+        // var axios = require('axios');
+        // axios.get("https://git-lance.firebaseapp.com/api/solve/bounty").then((res) => {
+        //     var data = res.data.records;
+        //     this.setState({ data });
+        // })
+
+        var fetch = require('node-fetch');
+        const { auth } = this.props;
+
+        var options = {
+            method: 'POST',
+            url: 'https://git-lance.firebaseapp.com/api/upload/uploadedIssues',
+            headers:
+            {
+                'Postman-Token': '41582a4d-a65f-40d8-ac5d-ca27b473348d',
+                'cache-control': 'no-cache',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId: auth.uid }),
+            json: true
+        };
+
+        fetch(options.url, options).then((res) => res.json()).then((res) => {
+            var data = res.records;
+            this.setState({ data })
         })
 
     }
@@ -68,12 +91,14 @@ class UploadedIssues extends Component {
                                         (value, index) => {
                                             return (
                                                 <div className="col m3">
-                                                    <a href="/solissue"><UpIssueTile
-                                                        title={value.bountyName}
-                                                        name={value.creatorName}
-                                                        repo={value.Repo}
-                                                        pay={value.bountyValue}
-                                                    /></a>
+                                                    <Link to={{
+                                                        pathname: "/subissue", data: value
+                                                    }}> <UpIssueTile
+                                                            title={value.bountyName}
+                                                            name={value.creatorName}
+                                                            repo={value.Repo}
+                                                            pay={value.bountyValue}
+                                                        /></Link>
                                                 </div>
                                             )
                                         }
@@ -90,4 +115,10 @@ class UploadedIssues extends Component {
     }
 }
 
-export default UploadedIssues
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth
+    }
+}
+
+export default connect(mapStateToProps)(UploadedIssues)

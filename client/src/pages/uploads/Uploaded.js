@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UpProbTile from '../../components/layout/UpProbTile';
 import UpIssueTile from '../../components/layout/UpIssueTile';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
@@ -61,55 +61,51 @@ class Uploaded extends Component {
             this.setState({ data2 })
         })
 
-
     }
 
-    returnInfo(e) {
-        e.preventDefault()
-        // console.log(e.target.problemHeading)
-        // console.log(e.target.creatorName)
-    }
 
     render() {
         const { auth } = this.props;
         if (!auth.uid) return <Redirect to='/signin' />
         return (
-            <BrowserRouter>
-                <div className="container">
-                    <a href="/uploadedissues"><h4>Uploaded Issues</h4></a>
-                    <ul className="list-container">
-                        {
-                            this.state.data.map(i => {
-                                console.log(i);
-                                return (<li className="list-item"><a href="/"><UpIssueTile
+
+            <div className="container">
+                <a href="/uploadedissues"><h4>Uploaded Issues</h4></a>
+                <ul className="list-container">
+                    {
+                        this.state.data.map(i => {
+                            return (<li className="list-item"><Link to={{ pathname: "/subissue", data: i }}>
+                                <UpIssueTile
                                     title={i.bountyName}
                                     name={i.creatorName}
                                     repo={i.Repo}
                                     pay={i.bountyValue}
-                                /></a></li>
-                                );
-                            })
-                        }
-                    </ul>
-                    <a href="/uploadedproblems"><h4>Uploaded Problems</h4></a>
-                    <ul className="list-container">
-                        {
-                            this.state.data2.map(i => {
-                                console.log(i);
-                                return (<li className="list-item"><a href="/subproblem"><UpProbTile
+                                /></Link></li>
+                            );
+                        })
+                    }
+                </ul>
+                <a href="/uploadedproblem"><h4>Uploaded Problems</h4></a>
+                <ul className="list-container">
+                    {
+                        this.state.data2.map(i => {
+                            console.log(i);
+                            return (<li className="list-item"><Link to={{
+                                pathname: "/subproblem", data: i
+                            }}> <UpProbTile
                                     title={i.problemHeading}
                                     description={i.problemDescription}
                                     name={i.creatorName}
                                     score={0}
                                     submissions={Object.keys(i.submissions).length}
                                     pay={i.pay}
-                                /></a></li>
-                                );
-                            })
-                        }
-                    </ul>
-                </div>
-            </BrowserRouter >
+                                /></Link></li>
+                            );
+                        })
+                    }
+                </ul>
+            </div>
+
         )
     }
 }
@@ -121,5 +117,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(Uploaded);
-
-

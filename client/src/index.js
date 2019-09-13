@@ -30,6 +30,11 @@ import UploadedIssues from './pages/uploads/UploadedIssues';
 import UploadedProblems from './pages/uploads/UploadedProblems';
 import { Router, withRouter } from 'react-router';
 
+import IssueSubs from './pages/subto/IssueSubs';
+import ProblemSubs from './pages/subto/ProblemSubs';
+import SubmittedProblem from './pages/subby/SubmittedProblems';
+import SubmittedIssues from './pages/subby/SubmittedIssues';
+
 
 
 const store = createStore(rootReducer,
@@ -57,10 +62,13 @@ class Routing extends React.Component {
                         <Route path="/problem" component={withRouter(Problem)} />
                         <Route path="/solissue" component={withRouter(SolveIssues)} />
                         <Route path="/solproblem" component={withRouter(SolveProblem)} />
-                        <Route path="/subproblem" component={withRouter(ProblemUp)} />
+                        <Route path="/subproblem" component={withRouter(ProblemSubs)} />
+                        <Route path="/subissue" component={withRouter(IssueSubs)} />
                         <Route path="/uploaded" component={withRouter(Uploaded)} />
                         <Route path="/uploadedissues" component={withRouter(UploadedIssues)} />
                         <Route path="/uploadedproblems" component={withRouter(UploadedProblems)} />
+                        <Route path="/issuesub" component={withRouter(SubmittedIssues)} />
+                        <Route path="/problemsub" component={withRouter(SubmittedProblem)} />
                     </Switch>
                 </div>
             </BrowserRouter>
@@ -78,3 +86,4 @@ store.firebaseAuthIsReady.then(() => {
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
