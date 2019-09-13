@@ -8,11 +8,8 @@
         "storage"
     ],
     "browser_action": {
-        "default_popup": "popup.html",
-        "default_icon": {}
+        "default_popup": "popup.html"
     },
-    "options_page": "",
-    "icons": {},
     "background": {
         "scripts": [
             "background.js",

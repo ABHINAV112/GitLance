@@ -1,7 +1,7 @@
-const express = require("express");
-const router = express.Router();
-const admin = require("firebase-admin");
-const functions = require("firebase-functions");
+var express = require("express");
+var router = express.Router();
+var admin = require("firebase-admin");
+var functions = require("firebase-functions");
 admin.initializeApp(functions.config().firebase);
 
 var db = admin.firestore();
@@ -42,7 +42,11 @@ module.exports = () => {
       problemHeading: jobRequestData.problemHeading,
       problemDescription: jobRequestData.problemDescription,
       pay: jobRequestData.pay,
-      submissions: {}
+      submissions: {},
+      timeLimit : jobRequestData.timeLimit,
+      memoryLimit: jobRequestData.memoryLimit,
+      inputString:jobRequestData.inputString,
+      outputString:jobRequestData.outputString
     };
     var currFields;
     var jobLength = 0;
@@ -100,7 +104,7 @@ module.exports = () => {
   router.post("/resolve/issue", (req, res) => {return res.send("not implemented")});
   router.post("/resolve/problem", (req, res) => {return res.send("not implemented")});
 
-  router.post("/uploadedProblems",async(req,res)=>{
+  router.post("/uploadedIssues",async(req,res)=>{
     var userId = req.body.userId;
     // let db = admin.firestore();
     var collection = await db.collection("bountyData").get();
@@ -114,12 +118,32 @@ module.exports = () => {
             currDocData[currRepo][issue]["Repo"] = currRepo;
             currDocData[currRepo][issue]["issue"] = issue;
             currDocData[currRepo][issue]["creator"] = undefined;
+            currDocData[currRepo][issue]["gitRepoCreator"] = doc.id;
             output.records.push(currDocData[currRepo][issue]);
           }
         }
       }
     });
     return res.json(output);
+  });
+
+  router.post("/uploadedProblems", async (req, res) => {
+    var userId = req.body.userId;
+    var output = { records: [] };
+    var collection = await db.collection("jobData").get();
+    collection.forEach(doc => {
+      var currDocData = doc.data();
+      var creatorId = doc.id;
+      if(creatorId===userId){
+        for (var job in currDocData) {
+          var currJob = currDocData[job];
+          currJob["jobId"] = job;
+          currJob["creatorId"] = creatorId;
+          output.records.push(currJob);
+        }
+      }
+    });
+    return res.send(output);
   });
 
   return router;

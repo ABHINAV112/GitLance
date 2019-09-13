@@ -1,10 +1,10 @@
-const functions = require("firebase-functions");
-const cors = require('cors')({origin: true});
-const express = require("express");
-const app = express();
-const apis = require("./api");
-const bodyParser = require("body-parser");
-const admin = require("firebase-admin");
+var functions = require("firebase-functions");
+var cors = require('cors')({origin: true});
+var express = require("express");
+var app = express();
+var apis = require("./api");
+var bodyParser = require("body-parser");
+var admin = require("firebase-admin");
 // admin.initializeApp(functions.config().firebase);
 app.use(bodyParser.json());
 
@@ -14,3 +14,11 @@ app.use("/api", apis());
 //     return res.send(__dirname+'/build/index.html')
 // })
 exports.app = functions.https.onRequest(app);
+
+exports.setMoney = functions.auth.user().onCreate(async (user) => {
+  // db.collection('money').doc('')
+  var db = admin.firestore();
+  console.log(user);
+  db.collection('money').doc(user.uid).set({'money':50});
+  return ('success');
+});
