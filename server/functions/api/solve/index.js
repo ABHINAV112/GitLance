@@ -1,7 +1,7 @@
-const express = require("express");
-const router = express.Router();
-const admin = require("firebase-admin");
-// const functions = require("firebase-functions");
+var express = require("express");
+var router = express.Router();
+var admin = require("firebase-admin");
+// var functions = require("firebase-functions");
 // admin.initializeApp(functions.config().firebase);
 
 var db = admin.firestore();
@@ -18,6 +18,7 @@ module.exports = () => {
           if(currDocData[currRepo][issue].creator!==userId){
             currDocData[currRepo][issue]["Repo"] = currRepo;
             currDocData[currRepo][issue]["issue"] = issue;
+            currDocData[currRepo][issue]["gitRepoCreator"] = doc.id;
             output.records.push(currDocData[currRepo][issue]);
           }
         }
@@ -190,6 +191,64 @@ module.exports = () => {
     });
     return res.send(output);
   });
+
+  router.post("/selfIssueSubmission",async(req,res)=>{
+    var userId = req.body.userId;
+    var output = {records:[]};
+    // var submissionCollection = await db.collection("submissionData").doc(userId).get();
+    // if(!submissionCollection.exists){
+    //   return res.send(output);
+    // }
+    // var issues = submissionCollection.issues;
+    var issueCollection = await db.collection("bountyData").get();
+    issueCollection.forEach(function(doc){
+      // console.log("document id",doc.id);
+      var gitRepoCreator = doc.id;
+      // console.log("document data",doc.data());
+      var creatorData = doc.data();
+      for(var currRepo in creatorData){
+        for(var currIssue in creatorData[currRepo]){
+          if(creatorData[currRepo][currIssue].submissions){
+            console.log("submissions data",creatorData[currRepo][currIssue].submissions);
+            if(creatorData[currRepo][currIssue].submissions[userId]){
+              output.records.push(creatorData[currRepo][currIssue].submissions[userId])
+              var length = output.records.length;
+              output.records[length-1]['gitRepo'] = currRepo;
+              output.records[length-1]['gitRepoCreator'] = gitRepoCreator;
+              output.records[length-1]['issueId'] = currIssue;
+              output.records[length-1]['bountyName'] = creatorData[currRepo][currIssue]['bountyName'];
+              output.records[length-1]['bountyValue'] = creatorData[currRepo][currIssue]['bountyValue'];
+            }
+          }
+        }
+      }
+    })
+    // console.log(issueCollection);
+    return res.send(output);
+  });
+  router.post('/selfProblemSubmission',async(req,res)=>{
+    var userId = req.body.userId;
+    var output = {records:[]};
+    var jobCollection = await db.collection('jobData').get();
+    jobCollection.forEach(function(doc){
+      var jobCreator = doc.id;
+      var creatorData = doc.data();
+      for(var job in creatorData){
+        if(creatorData[job].submissions[userId]){
+          // console.log("shit being logegd",creatorData[job].submissions)
+          output.records.push(creatorData[job].submissions[userId]);
+          var length = output.records.length;
+          output.records[length-1]['jobCreator'] = jobCreator;
+          output.records[length-1]['jobId'] = job;
+          output.records[length-1]['pay'] = creatorData[job].pay;
+          output.records[length-1]['creatorName'] = creatorData[job].creatorName;
+          output.records[length-1]['problemHeading'] = creatorData[job].problemHeading;
+          output.records[length-1]['problemDescription'] = creatorData[job].problemDescription;
+        }
+      }
+    })
+    return res.send(output);  
+  })
 
   return router;
 };
