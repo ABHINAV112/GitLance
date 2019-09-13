@@ -11,7 +11,11 @@ class JobUploadForm extends Component {
         pay: "",
         inputFile: "",
         outputFile: "",
-        redirect: false
+        redirect: false,
+        memoryLimit: "",
+        timeLimit: "",
+        inputString: "",
+        outputString: ""
     }
 
     handleChange = (e) => {
@@ -31,11 +35,35 @@ class JobUploadForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
+
+
+        console.log("output", outputString)
+        console.log("input", inputString)
+
         const { auth } = this.props;
         var uploadData = this.state;
         uploadData.creatorId = auth.uid;
         uploadData.creatorName = auth.displayName;
-        console.log("upload data", uploadData);
+        var inputFile = this.state.inputFile;
+        var outputFile = this.state.outputFile;
+        var inputString;
+        var outputString;
+
+        var read1 = new FileReader();
+        read1.readAsText(inputFile);
+        read1.onloadend = () => {
+            inputString = read1.result
+            uploadData.inputString = inputString
+        }
+
+        var read2 = new FileReader();
+
+        read2.readAsText(outputFile);
+        read2.onloadend = () => {
+            outputString = read2.result
+            uploadData.outputString = outputString
+        }
+
         var request = require("request");
         var options = {
             method: 'POST',
@@ -56,22 +84,14 @@ class JobUploadForm extends Component {
             alert("invalid input file!");
             return;
         }
-        request(options, function (error, response, body) {
-            console.log(body);
-            var firebase = require("firebase");
-            var storage = firebase.app().storage("gs://git-lance.appspot.com");
-            var storageRef = storage.ref();
-            var userRef = storageRef.child(uploadData.creatorId)
-            var jobRef = userRef.child(body.jobId);
-            var inputRef = jobRef.child('input');
-            var outputRef = jobRef.child('output');
-            outputRef.put(uploadData.outputFile);
-            inputRef.put(uploadData.inputFile);
-            // this.renderRedirect();
-            // redirect = true;
-            history.push('/home')
-            window.location.reload()
-        });
+        setTimeout(function () {
+            request(options, function (error, response, body) {
+                console.log(body);
+                console.log(uploadData);
+                history.push('/home')
+                window.location.reload()
+            })
+        }, 5000);
     }
 
     render(state) {
@@ -99,6 +119,14 @@ class JobUploadForm extends Component {
                     <div className="input-field">
                         <label htmlFor="pay">Pay</label>
                         <input type="number" id="pay" onChange={this.handleChange} />
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="memoryLimit">Memory in Bytes</label>
+                        <input type="number" id="memoryLimit" onChange={this.handleChange} />
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="timeLimit">Time in Microseconds</label>
+                        <input type="number" id="timeLimit" onChange={this.handleChange} />
                     </div>
                     <div className="row">
                         <div className="input-field col m6">

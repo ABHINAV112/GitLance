@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
+import ProblemSolution from '../../components/layout/ProblemSolution';
 
 class SolveProblem extends Component {
     render() {
         return (
-            <h4>SolveProb</h4>
+            <div className="container">
+                <ProblemSolution
+                    // data={this.props.location.data}
+                    inputString=""
+                    outputString=""
+                />
+            </div>
         )
     }
 }
