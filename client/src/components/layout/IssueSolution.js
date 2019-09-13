@@ -24,7 +24,7 @@ class IssueSolution extends Component {
             solverUserName: auth.displayName,
             answer: this.state.answer
         }
-        console.log(uploadedSol)
+        (uploadedSol)
         var fetch = require("node-fetch");
 
         var options = {

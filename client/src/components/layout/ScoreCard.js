@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import { Progress } from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
+import { Link } from 'react-router-dom'
 
 class ScoreCard extends Component {
     render(props) {
+
         return (
             <div className="card-panel scorecard white-text">
                 <div className="row">
                     <div className="col m7">
                         <div className="row">
-                            <h4>{this.props.title}</h4>
+                            <h4>{this.props.dataProblem.data.problemHeading}</h4>
+                            <h5>{this.props.dataSolver.solverUserName}</h5>
                             <div className="col m5">
                                 <h5>Run Time</h5>
                             </div>
                             <div className="col m5">
                                 <div className="progress-align">
-                                    <Progress percent={this.props.runtime} />
+                                    <Progress percent={this.props.dataSolver.scores.time % 101} />
                                 </div>
                             </div>
                         </div>
@@ -25,7 +28,7 @@ class ScoreCard extends Component {
                             </div>
                             <div className="col m5">
                                 <div className="progress-align">
-                                    <Progress percent={this.props.memory} />
+                                    <Progress percent={this.props.dataSolver.scores.memory % 101} />
                                 </div>
                             </div>
                         </div>
@@ -35,7 +38,7 @@ class ScoreCard extends Component {
                             </div>
                             <div className="col m5">
                                 <div className="progress-align">
-                                    <Progress percent={this.props.efficiency} />
+                                    <Progress percent={this.props.dataSolver.scores.efficiency % 101} />
                                 </div>
                             </div>
                         </div>
@@ -45,10 +48,10 @@ class ScoreCard extends Component {
                         <div className="circle-align">
                             <Progress
                                 type="circle"
-                                percent={this.props.overall}
+                                percent={this.props.dataSolver.scores.total % 101}
                             />
                         </div>
-                        <button className="waves-effect waves-light btn right">Buy</button>
+                        <Link to={{ pathname: "/buy", dataSolver: this.props.dataSolver, dataProblem: this.props.dataProblem.data, solverID: this.props.solverID }}><button className="waves-effect waves-light btn right">Buy</button></Link>
                     </div>
                 </div>
             </div >

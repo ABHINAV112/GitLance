@@ -37,8 +37,8 @@ class JobUploadForm extends Component {
 
 
 
-        console.log("output", outputString)
-        console.log("input", inputString)
+        ("output", outputString)
+            ("input", inputString)
 
         const { auth } = this.props;
         var uploadData = this.state;
@@ -86,8 +86,7 @@ class JobUploadForm extends Component {
         }
         setTimeout(function () {
             request(options, function (error, response, body) {
-                console.log(body);
-                console.log(uploadData);
+
                 history.push('/home')
                 window.location.reload()
             })
@@ -98,7 +97,7 @@ class JobUploadForm extends Component {
         const { auth } = this.props;
         if (!auth.uid) return <Redirect to='/signin' />
         // if (redirect) {
-        //     console.log("gonna redirect biatchh");
+        //     ("gonna redirect biatchh");
         //     return <Redirect to='/home' />
         // }
 

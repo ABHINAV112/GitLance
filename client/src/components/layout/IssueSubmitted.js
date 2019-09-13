@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 class IssueSubmitted extends Component {
     render(props) {
-        console.log(this.props.data)
+
         return (
             <div className="container">
                 <div className="card-panel teal card-border white-text">

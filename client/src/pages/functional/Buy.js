@@ -1,15 +1,59 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import history from '../../history'
 
 class Buy extends Component {
+
+    handleBuy = () => {
+        var fetch = require("node-fetch");
+        const { auth } = this.props;
+
+        var paymentDetails = {
+            from: auth.uid,
+            to: this.props.location.solverID,
+            amount: this.props.location.dataProblem.pay
+        }
+
+
+        var options = {
+            method: 'POST',
+            url: 'https://git-lance.firebaseapp.com/api/payment/makeTransaction',
+            headers:
+            {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(paymentDetails),
+            // {
+            //     from: 'DOlzbAFrTJOxn1tYzOdWVBUkT0a2',
+            //     to: 'gOQFfO6U0PXzVptg3M1ig7MBY2K3',
+            //     amount: '30'
+            // },
+            json: true
+        };
+        fetch(options.url, options).then(res => (res).json()).then(res => {
+            history.push('/uploaded')
+            window.location.reload()
+        });
+
+
+    }
+
+    handleReject = () => {
+        ("Reject")
+    }
+
     render() {
         return (
             <div className="container">
-                <div className="card-panel card-border teal lighten-2">
-                    {/* <h4>{this.props.location.title}</h4> */}
-                    {/* <h5>Amount: {this.props.location.pay}</h5> */}
-                    <div className="row">
-                        <button className="btn-floating btn-large left white"><i className="material-icons red-text">thumb_down</i></button>
-                        <button className="btn-floating btn-large right white"><i className="material-icons green-text">thumb_up</i></button>
+                <div className="buy-pos">
+                    <div className="card-panel card-border teal lighten-2 buy-card white-text center">
+                        <h4>{this.props.location.dataProblem.problemHeading}</h4>
+                        <h5>{this.props.location.dataSolver.solverUserName}</h5>
+                        <h5>Amount: {this.props.location.dataProblem.pay}</h5>
+                        <div className="row">
+                            <button onClick={this.handleReject} className="btn-floating btn-large left white"><i className="material-icons red-text">thumb_down</i></button>
+                            <button onClick={this.handleBuy} className="btn-floating btn-large right white"><i className="material-icons green-text">thumb_up</i></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -17,4 +61,10 @@ class Buy extends Component {
     }
 }
 
-export default Buy;
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth
+    }
+}
+
+export default connect(mapStateToProps)(Buy);

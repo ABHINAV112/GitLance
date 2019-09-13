@@ -32,18 +32,18 @@ class ProblemSolution extends Component {
         const config = {
             headers: { 'content-type': 'multipart/form-data' }
         }
-        console.log(...formData);
+            (...formData);
         var URL = "http://compiler-env.i3hveummcp.ap-southeast-1.elasticbeanstalk.com/compile"
         fetch(URL, {
             "method": "POST",
             "data": formData,
             "headers": config.headers
-        }).then((res) => console.log(res));
+        }).then((res) => (res));
     }
 
 
     render() {
-        console.log(this.props.data)
+
         return (
             <div className="card-panel card-border red lighten-2 white-text">
                 <div className="row">

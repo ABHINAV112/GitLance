@@ -30,7 +30,7 @@ class SubmittedProblem extends Component {
 
         fetch(options.url, options).then((res) => res.json()).then((res) => {
             this.setState({ "submissions": res.records });
-            console.log(this.state)
+
         })
     }
     render() {
