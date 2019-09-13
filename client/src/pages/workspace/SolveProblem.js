@@ -6,9 +6,7 @@ class SolveProblem extends Component {
         return (
             <div className="container">
                 <ProblemSolution
-                    // data={this.props.location.data}
-                    inputString=""
-                    outputString=""
+                    data={this.props.location.data}
                 />
             </div>
         )

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Select from 'react-select'
 
 
 class ProblemSolution extends Component {
@@ -24,12 +23,12 @@ class ProblemSolution extends Component {
     handleSubmit = (e) => {
         var fetch = require("node-fetch");
         e.preventDefault();
-        var formData = new FormData();
-        formData.append("entrypoint", this.state.entrypoint);
-        formData.append("language", this.state.language);
-        formData.append("myCode", this.state.myCode);
-        // formData.append("",this.props.inputString);
-        formData.append("input_text", "1 2 3 4 5");
+        var formData = new FormData(e.target);
+        // formData.append("entrypoint", this.state.entrypoint);
+        // formData.append("language", this.state.language);
+        // formData.append("myCode", this.state.myCode);
+        // // formData.append("",this.props.inputString);
+        formData.append("input_text", this.props.data.inputString);
         // const config = {
         //     headers: { 'content-type': 'multipart/form-data' }
         // }
@@ -37,9 +36,8 @@ class ProblemSolution extends Component {
         var URL = "http://compiler-env.i3hveummcp.ap-southeast-1.elasticbeanstalk.com/compile"
         fetch(URL, {
             "method": "POST",
-            "body": formData,
-            "headers": { 'Content-Type': 'multipart/form-data' }
-        }).then((res) => (res));
+            "body": formData
+        }).then((res) => (res.json())).then(json => console.log(json));
     }
 
 
@@ -53,7 +51,7 @@ class ProblemSolution extends Component {
                     {/* <h5>Pay: ${this.props.data.pay}</h5> */}
                     <h5>Description:</h5>
                     {/* <h6>{this.props.data.problemDescription}</h6> */}
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleSubmit} method="post" encType="multipart/form-data">
                         <div className="input-field">
                             <label className="white-text" htmlFor="entrypoint">Enter entrypoint</label>
                             <input type="text" id="entrypoint" name="entrypoint" onChange={this.handleChange} />
@@ -67,10 +65,6 @@ class ProblemSolution extends Component {
                                 <option value="java">Java</option>
                             </select> */}
                             <input type="text" id="language" name="language" onChange={this.handleChange} />
-                        </div>
-                        <div>
-                            <label className="white-text" htmlFor="input_text">Enter stdin</label>
-                            <input type="text" id="input_text" name="input_text" onChange={this.handleChange} />
                         </div>
 
                         <div className="input-field col m6">
