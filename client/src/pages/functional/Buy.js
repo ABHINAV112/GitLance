@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import history from '../../history'
+import { Redirect } from 'react-router-dom'
 
 class Buy extends Component {
 
@@ -43,6 +44,8 @@ class Buy extends Component {
     }
 
     render() {
+
+        if (!this.props.location.dataProblem || !this.props.location.dataSolver) return <Redirect to='/uploaded' />
         return (
             <div className="container">
                 <div className="buy-pos">

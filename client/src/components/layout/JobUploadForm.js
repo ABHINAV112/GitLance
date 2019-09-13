@@ -129,11 +129,11 @@ class JobUploadForm extends Component {
                     </div>
                     <div className="row">
                         <div className="input-field col m6">
-                            <label >Input Test File</label>
+                            <h6 className="grey-text lighten-3">Input Test File</h6>
                             <input type="file" id="inputFile" onChange={this.onChangeHandler} />
                         </div>
                         <div className="input-field col m6">
-                            <label>Output Test File</label>
+                            <h6 className="grey-text lighten-3">Output Test File</h6>
                             <input type="file" id="outputFile" onChange={this.onChangeHandler} />
                         </div>
                     </div>
