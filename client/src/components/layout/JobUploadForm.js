@@ -13,7 +13,9 @@ class JobUploadForm extends Component {
         outputFile: "",
         redirect: false,
         memoryLimit: "",
-        timeLimit: ""
+        timeLimit: "",
+        inputString: "",
+        outputString: ""
     }
 
     handleChange = (e) => {
@@ -32,6 +34,12 @@ class JobUploadForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+
+        var inputFile = this.state.inputFile;
+        var outputFile = this.state.outputFile;
+
+        var read = new FileReader();
+        var inputString = read.readAsBinaryString(inputFile);
 
         const { auth } = this.props;
         var uploadData = this.state;

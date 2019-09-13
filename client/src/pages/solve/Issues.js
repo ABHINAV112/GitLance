@@ -69,51 +69,78 @@ class Issues extends Component {
             }
         }
         console.log("Data", rowData)
-        return (
-            <div className="container">
-                <h4>Issues</h4>
-                {/* <div className="row">
-                    <div className="col m3">
-                        <UpIssueTile />
-                    </div>
-                    <div className="col m3">
-                        <UpIssueTile />
-                    </div>
-                    <div className="col m3">
-                        <UpIssueTile />
-                    </div>
-                    <div className="col m3">
-                        <UpIssueTile />
-                    </div>
-                </div> */}
-                {
-                    rowMapping.map((outerValue, outerIndex) => {
-                        return (
-                            <div className="row">
-                                {
-                                    rowData[outerIndex].map(
-                                        (value, index) => {
-                                            return (
-                                                <div className="col m3">
-                                                    <Link to={{ pathname: "/solissue", data: value }} > <UpIssueTile
-                                                        title={value.bountyName}
-                                                        name={value.creatorName}
-                                                        repo={value.Repo}
-                                                        pay={value.bountyValue}
-                                                    /> </Link>
-                                                </div>
-                                            )
-                                        }
-                                    )
-                                }
-                            </div>
+        if (this.state.data.length) {
+            return (
+                <div className="container">
+                    <h4>Issues</h4>
+                    {/* <div className="row">
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                    </div> */}
+                    {
+                        rowMapping.map((outerValue, outerIndex) => {
+                            return (
+                                <div className="row">
+                                    {
+                                        rowData[outerIndex].map(
+                                            (value, index) => {
+                                                return (
+                                                    <div className="col m3">
+                                                        <Link to={{ pathname: "/solissue", data: value }} > <UpIssueTile
+                                                            title={value.bountyName}
+                                                            name={value.creatorName}
+                                                            repo={value.Repo}
+                                                            pay={value.bountyValue}
+                                                        /> </Link>
+                                                    </div>
+                                                )
+                                            }
+                                        )
+                                    }
+                                </div>
 
-                        )
+                            )
 
-                    })
-                }
-            </div>
-        )
+                        })
+                    }
+                </div>
+            )
+        }
+        else {
+            return (
+                <div className="container">
+                    <h4>Issues</h4>
+                    {/* <div className="row">
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                    </div> */}
+                    <div className="center-text">
+                        <h5>No Issues to Solve</h5>
+                    </div>
+                </div>
+            )
+        }
+
     }
 }
 

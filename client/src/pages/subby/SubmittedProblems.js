@@ -34,18 +34,31 @@ class SubmittedProblem extends Component {
         })
     }
     render() {
-        return (
-            <div className="container">
-                {
-                    this.state.submissions.map(i => {
-                        return (
-                            <ProblemSubmitted
-                                data={i}
-                            />
-                        )
-                    })}
-            </div>
-        )
+        if (this.state.submissions.length) {
+            return (
+                <div className="container">
+                    <h4>Submitted Problems</h4>
+                    {
+                        this.state.submissions.map(i => {
+                            return (
+                                <ProblemSubmitted
+                                    data={i}
+                                />
+                            )
+                        })}
+                </div>
+            )
+        }
+        else {
+            return (
+                <div className="container">
+                    <h4>Submitted Problems</h4>
+                    <div className="center-text">
+                        <h5>No Problems Submitted</h5>
+                    </div>
+                </div>
+            )
+        }
     }
 }
 

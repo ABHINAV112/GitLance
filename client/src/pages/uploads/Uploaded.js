@@ -67,46 +67,134 @@ class Uploaded extends Component {
     render() {
         const { auth } = this.props;
         if (!auth.uid) return <Redirect to='/signin' />
-        return (
+        if (this.state.data.length && this.state.data2.length) {
+            return (
 
-            <div className="container">
-                <a href="/uploadedissues"><h4>Uploaded Issues</h4></a>
-                <ul className="list-container">
-                    {
-                        this.state.data.map(i => {
-                            return (<li className="list-item"><Link to={{ pathname: "/subissue", data: i }}>
-                                <UpIssueTile
-                                    title={i.bountyName}
-                                    name={i.creatorName}
-                                    repo={i.Repo}
-                                    pay={i.bountyValue}
-                                /></Link></li>
-                            );
-                        })
-                    }
-                </ul>
-                <a href="/uploadedproblems"><h4>Uploaded Problems</h4></a>
-                <ul className="list-container">
-                    {
-                        this.state.data2.map(i => {
-                            console.log(i);
-                            return (<li className="list-item"><Link to={{
-                                pathname: "/subproblem", data: i
-                            }}> <UpProbTile
-                                    title={i.problemHeading}
-                                    description={i.problemDescription}
-                                    name={i.creatorName}
-                                    score={0}
-                                    submissions={Object.keys(i.submissions).length}
-                                    pay={i.pay}
-                                /></Link></li>
-                            );
-                        })
-                    }
-                </ul>
-            </div>
+                <div className="container">
+                    <a href="/uploadedissues"><h4>Uploaded Issues</h4></a>
+                    <ul className="list-container">
+                        {
+                            this.state.data.map(i => {
+                                return (<li className="list-item"><Link to={{ pathname: "/subissue", data: i }}>
+                                    <UpIssueTile
+                                        title={i.bountyName}
+                                        name={i.creatorName}
+                                        repo={i.Repo}
+                                        pay={i.bountyValue}
+                                    /></Link></li>
+                                );
+                            })
+                        }
+                    </ul>
+                    <a href="/uploadedproblems"><h4>Uploaded Problems</h4></a>
+                    <ul className="list-container">
+                        {
+                            this.state.data2.map(i => {
+                                console.log(i);
+                                return (<li className="list-item"><Link to={{
+                                    pathname: "/subproblem", data: i
+                                }}> <UpProbTile
+                                        title={i.problemHeading}
+                                        description={i.problemDescription}
+                                        name={i.creatorName}
+                                        score={0}
+                                        submissions={Object.keys(i.submissions).length}
+                                        pay={i.pay}
+                                    /></Link></li>
+                                );
+                            })
+                        }
+                    </ul>
+                </div>
 
-        )
+            )
+        } else if (this.state.data.length && this.state.data2.length == 0) {
+            return (
+
+                <div className="container">
+                    <a href="/uploadedissues"><h4>Uploaded Issues</h4></a>
+                    <ul className="list-container">
+                        {
+                            this.state.data.map(i => {
+                                return (<li className="list-item"><Link to={{ pathname: "/subissue", data: i }}>
+                                    <UpIssueTile
+                                        title={i.bountyName}
+                                        name={i.creatorName}
+                                        repo={i.Repo}
+                                        pay={i.bountyValue}
+                                    /></Link></li>
+                                );
+                            })
+                        }
+                    </ul>
+                    <a href="/uploadedproblems"><h4>Uploaded Problems</h4></a>
+                    <div className="container">
+                        <div className="tile-container">
+                            <div className="center-text">
+                                <h5>No Problems Uploaded</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            )
+        } else if (this.state.data.length == 0 && this.state.data2.length) {
+            return (
+
+                <div className="container">
+                    <a href="/uploadedissues"><h4>Uploaded Issues</h4></a>
+                    <div className="container">
+                        <div className="tile-container">
+                            <div className="center-text">
+                                <h5>No Issues Uploaded</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/uploadedproblems"><h4>Uploaded Problems</h4></a>
+                    <ul className="list-container">
+                        {
+                            this.state.data2.map(i => {
+                                console.log(i);
+                                return (<li className="list-item"><Link to={{
+                                    pathname: "/subproblem", data: i
+                                }}> <UpProbTile
+                                        title={i.problemHeading}
+                                        description={i.problemDescription}
+                                        name={i.creatorName}
+                                        score={0}
+                                        submissions={Object.keys(i.submissions).length}
+                                        pay={i.pay}
+                                    /></Link></li>
+                                );
+                            })
+                        }
+                    </ul>
+                </div>
+
+            )
+        }
+        else if (this.state.data.length === 0 && this.state.data2.length === 0) {
+            return (
+
+                <div className="container">
+                    <a href="/uploadedissues"><h4>Uploaded Issues</h4></a>
+                    <div className="container">
+                        <div className="tile-container">
+                            <div className="center-text">
+                                <h5>No Issues Uploaded</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/uploadedproblems"><h4>Uploaded Problems</h4></a>
+                    <div className="tile-container">
+                        <div className="center-text">
+                            <h5>No Problems Uploaded</h5>
+                        </div>
+                    </div>
+                </div>
+
+            )
+        }
     }
 }
 

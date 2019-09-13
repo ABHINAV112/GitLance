@@ -65,64 +65,90 @@ class UploadedProblems extends Component {
             }
         }
         console.log("Data", rowData)
-        return (
-            <div className="container">
-                <h4>Uploaded Problems</h4>
-                {/* <div className="row">
-                    <div className="col m3">
-                        <UpIssueTile />
-                    </div>
-                    <div className="col m3">
-                        <UpIssueTile />
-                    </div>
-                    <div className="col m3">
-                        <UpIssueTile />
-                    </div>
-                    <div className="col m3">
-                        <UpIssueTile />
-                    </div>
-                </div> */}
-                {
-                    rowMapping.map((outerValue, outerIndex) => {
-                        return (
-                            <div className="row">
-                                {
-                                    rowData[outerIndex].map(
-                                        (value, index) => {
-                                            var scoreVal = "no submissions";
-                                            var currSubmissions = value.submissions;
-                                            var currBestSubmission = value.bestSubmissionId;
-                                            var submissionsVal = "no submissions";
-                                            if (Object.keys(currSubmissions).length) {
-                                                submissionsVal = Object.keys(currSubmissions).length;
-                                                scoreVal = currSubmissions[currBestSubmission].scores.total;
+        if (this.state.data.length) {
+            return (
+                <div className="container">
+                    <h4>Uploaded Problems</h4>
+                    {/* <div className="row">
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                    </div> */}
+                    {
+                        rowMapping.map((outerValue, outerIndex) => {
+                            return (
+                                <div className="row">
+                                    {
+                                        rowData[outerIndex].map(
+                                            (value, index) => {
+                                                var scoreVal = "no submissions";
+                                                var currSubmissions = value.submissions;
+                                                var currBestSubmission = value.bestSubmissionId;
+                                                var submissionsVal = "no submissions";
+                                                if (Object.keys(currSubmissions).length) {
+                                                    submissionsVal = Object.keys(currSubmissions).length;
+                                                    scoreVal = currSubmissions[currBestSubmission].scores.total;
+                                                }
+                                                console.log(value)
+                                                return (
+                                                    <div className="col m3">
+                                                        <Link to={{
+                                                            pathname: "/subproblem", data: value
+                                                        }}> <UpProbTile
+                                                                title={value.problemHeading}
+                                                                description={value.problemDescription}
+                                                                name={value.creatorName}
+                                                                score={scoreVal}
+                                                                submissions={submissionsVal}
+                                                                pay={value.pay}
+                                                            /></Link>
+                                                    </div>
+                                                )
                                             }
-                                            console.log(value)
-                                            return (
-                                                <div className="col m3">
-                                                    <Link to={{
-                                                        pathname: "/subproblem", data: value
-                                                    }}> <UpProbTile
-                                                            title={value.problemHeading}
-                                                            description={value.problemDescription}
-                                                            name={value.creatorName}
-                                                            score={scoreVal}
-                                                            submissions={submissionsVal}
-                                                            pay={value.pay}
-                                                        /></Link>
-                                                </div>
-                                            )
-                                        }
-                                    )
-                                }
-                            </div>
+                                        )
+                                    }
+                                </div>
 
-                        )
+                            )
 
-                    })
-                }
-            </div>
-        )
+                        })
+                    }
+                </div>
+            )
+        } else {
+            return (
+                <div className="container">
+                    <h4>Uploaded Problems</h4>
+                    {/* <div className="row">
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                        <div className="col m3">
+                            <UpIssueTile />
+                        </div>
+                    </div> */}
+                    <div className="center-text">
+                        <h5>No Problems Uploaded</h5>
+                    </div>
+                </div>
+            )
+        }
+
     }
 }
 

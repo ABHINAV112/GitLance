@@ -108,3 +108,12 @@ body{
 .card-overflow{
     overflow: hidden;
 }
+
+.tile-container{
+    height: 315px;
+}
+
+.center-text{
+    text-align: center;
+    padding-top: 15%;
+}
