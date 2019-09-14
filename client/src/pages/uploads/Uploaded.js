@@ -90,7 +90,7 @@ class Uploaded extends Component {
                     <ul className="list-container">
                         {
                             this.state.data2.map(i => {
-                                console.log(i);
+
                                 return (<li className="list-item"><Link to={{
                                     pathname: "/subproblem", data: i
                                 }}> <UpProbTile
@@ -154,7 +154,7 @@ class Uploaded extends Component {
                     <ul className="list-container">
                         {
                             this.state.data2.map(i => {
-                                console.log(i);
+
                                 return (<li className="list-item"><Link to={{
                                     pathname: "/subproblem", data: i
                                 }}> <UpProbTile

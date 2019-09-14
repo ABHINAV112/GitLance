@@ -117,3 +117,29 @@ body{
     text-align: center;
     padding-top: 15%;
 }
+
+.buy-card{
+    width: 60%;
+}
+
+.buy-pos{
+    padding-left: 30%;
+    padding-top: 7%;
+}
+
+.nav-pos-header{
+    padding-top: 3.7%;
+    padding-right: 3%;
+}
+
+.nav-header-pos{
+    padding-top: 6%;
+}
+
+.btn-pos-cor{
+    padding-top: 4%;
+}
+
+.nav-element{
+    padding-top: 11%;
+}

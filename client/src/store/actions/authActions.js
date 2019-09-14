@@ -18,19 +18,17 @@ export const signInWithGithub = () => {
     return (dispatch, getState, { getFirebase }) => {
         const firebase = getFirebase();
         var provider = new firebase.auth.GithubAuthProvider();
-        console.log("WOrks")
 
         firebase.auth().signInWithPopup(provider).then(function (result) {
             // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-            console.log(result)
             var token = result.credential.accessToken;
             // The signed-in user info.
             var user = result.user;
-            console.log(token)
+
             // ...
         }).catch(function (error) {
             // Handle Errors here.
-            console.log(error)
+
             var errorCode = error.code;
             var errorMessage = error.message;
             // The email of the user's account used.

@@ -42,12 +42,12 @@ class UploadedIssues extends Component {
 
     render() {
         var recordsLength = this.state.data.length;
-        console.log("Records", recordsLength)
+
         var rows = Math.ceil(recordsLength / 4);
         var count = 0;
         var rowMapping = [];
         for (let i = 0; i < rows; i++) rowMapping.push(i);
-        console.log("rowMapp", rowMapping)
+
         var rowData = [];
         var currRow = []
         for (let i = 0; i < recordsLength; i++) {
@@ -64,7 +64,7 @@ class UploadedIssues extends Component {
                 rowData.push(currRow);
             }
         }
-        console.log("Data", rowData)
+
         if (this.state.data.length) {
             return (
                 <div className="container">

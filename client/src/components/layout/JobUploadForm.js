@@ -37,8 +37,7 @@ class JobUploadForm extends Component {
 
 
 
-        console.log("output", outputString)
-        console.log("input", inputString)
+
 
         const { auth } = this.props;
         var uploadData = this.state;
@@ -86,8 +85,7 @@ class JobUploadForm extends Component {
         }
         setTimeout(function () {
             request(options, function (error, response, body) {
-                console.log(body);
-                console.log(uploadData);
+
                 history.push('/home')
                 window.location.reload()
             })
@@ -98,7 +96,7 @@ class JobUploadForm extends Component {
         const { auth } = this.props;
         if (!auth.uid) return <Redirect to='/signin' />
         // if (redirect) {
-        //     console.log("gonna redirect biatchh");
+        //     ("gonna redirect biatchh");
         //     return <Redirect to='/home' />
         // }
 
@@ -130,11 +128,11 @@ class JobUploadForm extends Component {
                     </div>
                     <div className="row">
                         <div className="input-field col m6">
-                            <label >Input Test File</label>
+                            <h6 className="grey-text lighten-3">Input Test File</h6>
                             <input type="file" id="inputFile" onChange={this.onChangeHandler} />
                         </div>
                         <div className="input-field col m6">
-                            <label>Output Test File</label>
+                            <h6 className="grey-text lighten-3">Output Test File</h6>
                             <input type="file" id="outputFile" onChange={this.onChangeHandler} />
                         </div>
                     </div>

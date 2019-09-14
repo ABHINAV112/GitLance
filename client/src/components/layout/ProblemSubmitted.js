@@ -4,7 +4,7 @@ import "react-sweet-progress/lib/style.css";
 
 class ProblemSubmitted extends Component {
     render(props) {
-        console.log(this.props.data)
+
         return (
             <div className="card-panel scorecard white-text">
                 <div className="row">

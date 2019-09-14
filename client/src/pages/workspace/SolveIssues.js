@@ -3,7 +3,7 @@ import IssueSolution from '../../components/layout/IssueSolution';
 
 class SolveIssues extends Component {
     componentDidMount() {
-        console.log(this.props.location.data)
+
     }
     render() {
         return (

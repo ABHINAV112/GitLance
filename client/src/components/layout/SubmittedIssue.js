@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class SubmittedIssue extends Component {
     render() {
@@ -9,6 +10,7 @@ class SubmittedIssue extends Component {
                     <h5>{this.props.data.Repo}</h5>
                     <h5>{this.props.answer}</h5>
                 </div>
+                <Link to={{ pathname: "/buy", data: this.props.data }}><button className="btn right">Buy</button></Link>
             </div>
         )
     }
