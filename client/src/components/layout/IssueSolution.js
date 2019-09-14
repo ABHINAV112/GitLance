@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import history from '../../history';
 class IssueSolution extends Component {
 
     state = {
@@ -24,7 +25,7 @@ class IssueSolution extends Component {
             solverUserName: auth.displayName,
             answer: this.state.answer
         }
-        console.log(uploadedSol)
+            (uploadedSol)
         var fetch = require("node-fetch");
 
         var options = {
@@ -47,7 +48,10 @@ class IssueSolution extends Component {
             // }
             json: true
         };
-        fetch(options.url, options)
+        fetch(options.url, options).then(() => {
+            history.push('/home')
+            window.location.reload()
+        })
     }
 
 

@@ -6,9 +6,8 @@ import { connect } from 'react-redux'
 import { signOut } from '../../store/actions/authActions'
 
 class LoggedInLinks extends Component {
-    render() {
+    render(props) {
         const { auth } = this.props;
-        console.log(auth)
         if (auth.photoURL) {
             return (
                 <ul className="right">
@@ -46,7 +45,7 @@ class LoggedInLinks extends Component {
                     <li>
                         <Dropdown trigger={
                             <a className="grey darken-3">
-                                <h6 className="nav-header left">
+                                <h6 className="nav-header-pos left">
                                     Submissions
                                         </h6>
                                 <i className="material-icons right">arrow_drop_down</i>
@@ -57,8 +56,11 @@ class LoggedInLinks extends Component {
                         </Dropdown>
                     </li>
                     <li>
+                        <h6 className="nav-pos-header">Balance: ${this.props.balance}</h6>
+                    </li>
+                    <li>
                         <Dropdown trigger={
-                            <img src={auth.photoURL} className="btn btn-floating" />
+                            <h6><img src={auth.photoURL} className="btn-floating" /></h6>
                         }>
                             <NavItem href="/profile">My Profile</NavItem>
                             <NavItem onClick={this.props.signOut}>Log Out</NavItem>
