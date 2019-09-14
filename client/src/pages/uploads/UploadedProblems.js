@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import UpProbTile from '../../components/layout/UpProbTile';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 
@@ -41,6 +41,9 @@ class UploadedProblems extends Component {
 
 
     render() {
+        const { auth } = this.props;
+        if (!auth.uid) return <Redirect to="/signin" />
+
         var recordsLength = this.state.data.length;
         var rows = Math.ceil(recordsLength / 4);
         var count = 0;
