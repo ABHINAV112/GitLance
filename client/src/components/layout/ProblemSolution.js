@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import history from '../../history'
 
 
+
 class ProblemSolution extends Component {
     state = {
         entrypoint: "",
@@ -32,7 +33,6 @@ class ProblemSolution extends Component {
         if (timeScore < 0) {
             timeScore = 0;
         }
-        //   console.log(convert(response["memory"]));
         var memScore = Math.round(
             (1 - this.convert(response["memory"]) / input["memory"]) * 100
         );
@@ -73,7 +73,6 @@ class ProblemSolution extends Component {
 
     convert = (memory) => {
         var m = memory.split(" ");
-        //   console.log(m);
         var num = parseInt(m[0]);
         var unit = m[1];
 
@@ -91,7 +90,6 @@ class ProblemSolution extends Component {
         //     time: this.props.data.timeLimit
         // }
 
-        console.log(this.props.data)
 
         var input = {
             output: this.props.data.outputString,
@@ -115,14 +113,13 @@ class ProblemSolution extends Component {
             output: "",
             actualOutput: input.output
         }
-        console.log(...formData);
+
         var URL = "http://compiler-env.i3hveummcp.ap-southeast-1.elasticbeanstalk.com/compile"
         fetch(URL, {
             "method": "POST",
             "body": formData
         }).then((res) => (res.json())).then(json => {
-            console.log(json)
-            console.log(this.makeScore(input, json))
+
             solutionUpload = {
                 creatorId: this.props.data.creatorId,
                 jobId: this.props.data.jobId,
@@ -130,50 +127,49 @@ class ProblemSolution extends Component {
                 solverUserName: auth.displayName,
                 scores: this.makeScore(input, json)
             }
-            output.output = json.stdout;
-            var request = require("request")
+            var request = require("request");
 
             var options = {
                 method: 'POST',
-                mode: 'no-cors',
                 url: 'https://git-lance.firebaseapp.com/api/solve/submission/problem',
                 headers:
                 {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
+                    'cache-control': 'no-cache',
+                    Connection: 'keep-alive',
+                    'Content-Length': '240',
+                    'Accept-Encoding': 'gzip, deflate',
+                    Host: 'git-lance.firebaseapp.com',
+                    'Postman-Token': '04d1ca07-a2a5-4890-897f-f24548833e48,bcb07d68-5403-481e-b6af-caeda39a7ff6',
+                    'Cache-Control': 'no-cache',
+                    Accept: '*/*',
+                    'User-Agent': 'PostmanRuntime/7.16.3',
+                    'Content-Type': 'application/json'
                 },
-                body: solutionUpload
-            }
+                body: solutionUpload,
+                json: true
+            };
 
-            request(options.url, function (error, response, body) {
-
-                console.log(body);
-                console.log(solutionUpload.scores)
-                // setTimeout(function () {
-                //     history.push({
-                //         pathname: "/scorecard",
-                //         state: {
-                //             scores: solutionUpload.scores,
-                //             file: output
-                //         }
-                //     })
-                //     window.location.reload()
-                // }, 3000)
+            request(options, function (error, response, body) {
+                if (body === "success") {
+                    setTimeout(function () {
+                        history.push({
+                            pathname: "/scorecard",
+                            state: {
+                                scores: solutionUpload.scores,
+                                file: output
+                            }
+                        })
+                        window.location.reload()
+                    }, 3000)
+                }
             });
         });
 
 
-
-        // request(options, function (error, response, body) {
-        //     if (error) throw new Error(error);
-
-        //     console.log(body);
-        // });
     }
 
 
     render() {
-        console.log(this.props.data)
         return (
             <div className="card-panel card-border red lighten-2 white-text">
                 <div className="row">
