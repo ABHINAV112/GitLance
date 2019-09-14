@@ -37,8 +37,7 @@ class JobUploadForm extends Component {
 
 
 
-        ("output", outputString)
-            ("input", inputString)
+
 
         const { auth } = this.props;
         var uploadData = this.state;

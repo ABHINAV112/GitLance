@@ -17,6 +17,8 @@ class ProblemSubs extends Component {
 
         const { auth } = this.props;
 
+        console.log(this.props)
+
         var options = {
             method: 'POST',
             url: 'https://git-lance.firebaseapp.com/api/upload/jobSubmission',
@@ -25,7 +27,7 @@ class ProblemSubs extends Component {
                 'cache-control': 'no-cache',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ userId: auth.uid, jobId: "job_21" }),
+            body: JSON.stringify({ userId: auth.uid, jobId: this.props.location.data.jobId }),
             json: true
         };
         {/*this.props.location.data.jobId*/ }

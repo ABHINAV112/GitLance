@@ -34,6 +34,7 @@ class SubmittedProblem extends Component {
         })
     }
     render() {
+        console.log(this.state.submissions)
         if (this.state.submissions.length) {
             return (
                 <div className="container">
