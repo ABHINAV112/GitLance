@@ -9,8 +9,20 @@ class FinalScores extends Component {
                 <ProblemSubmitted
                     data={this.props.history.location.state}
                 />
-                <textarea>{this.props.history.location.state.file.output}</textarea>
-                <textarea>{this.props.history.location.state.file.actualOutput}</textarea>
+                <div className="row">
+                    <div className="col m6">
+                        <div className="card-panel card-border teal white-text">
+                            <h6>Output</h6>
+                            {this.props.history.location.state.file.output}
+                        </div>
+                    </div>
+                    <div className="col m6">
+                        <div className="card-panel card-border teal white-text">
+                            <h6>Expected Output</h6>
+                            {this.props.history.location.state.file.actualOutput}
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

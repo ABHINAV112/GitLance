@@ -49,6 +49,8 @@ class ProblemSolution extends Component {
 
     calculateOutput = (arr1, arr2) => {
         var matches = 0;
+        arr1 = this.clean(arr1);
+        arr2 = this.clean(arr2);
         for (var i = 0; i < arr1.length; i++) {
             if (arr2[i]) {
                 if (arr1[i] == arr2[i]) {
@@ -57,7 +59,18 @@ class ProblemSolution extends Component {
             }
         }
         return Math.round((matches / arr1.length) * 100);
+
     }
+    clean = arr => {
+        var cleanArr = [];
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] != "") {
+                cleanArr.push(arr[i]);
+            }
+        }
+        return cleanArr;
+    }
+
     convert = (memory) => {
         var m = memory.split(" ");
         //   console.log(m);
@@ -132,18 +145,20 @@ class ProblemSolution extends Component {
                 body: solutionUpload
             }
 
-            request(options, function (error, response, body) {
+            request(options.url, function (error, response, body) {
 
                 console.log(body);
                 console.log(solutionUpload.scores)
-                // history.push({
-                //     pathname: "/scorecard",
-                //     state: {
-                //         scores: solutionUpload.scores,
-                //         file: output
-                //     }
-                // })
-                // window.location.reload()
+                // setTimeout(function () {
+                //     history.push({
+                //         pathname: "/scorecard",
+                //         state: {
+                //             scores: solutionUpload.scores,
+                //             file: output
+                //         }
+                //     })
+                //     window.location.reload()
+                // }, 3000)
             });
         });
 

@@ -34,6 +34,7 @@ class ProblemSubs extends Component {
         fetch(options.url, options).then((res) => res.json()).then((res) => { this.setState({ "submissions": res.submissions }); this.setState({ "submissionKeys": Object.keys(res.submissions) }); })
     }
     render() {
+        console.log(this.props.location.data.jobId)
         return (
             <div className="container">
                 {
