@@ -2,8 +2,10 @@ var express = require("express");
 var router = express.Router();
 var admin = require("firebase-admin");
 var db = admin.firestore();
+var cors = require('cors')({origin: true});
 
 module.exports = () =>{
+    router.use(cors);
     router.post("/makeTransaction",async (req,res)=>{
         var from = req.body.from;
         var to = req.body.to;

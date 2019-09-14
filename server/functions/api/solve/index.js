@@ -114,7 +114,6 @@ module.exports = () => {
   router.post("/submission/problem", async (req, res) => {
     var submissionBody = req.body;
     var currSubmission = {
-      codeUrl: submissionBody.codeUrl,
       solverUserName: submissionBody.solverUserName,
       accepted: false,
       submissionTime: new Date().getTime(),
