@@ -3,10 +3,13 @@ var router = express.Router();
 var admin = require("firebase-admin");
 var functions = require("firebase-functions");
 admin.initializeApp(functions.config().firebase);
+var cors = require('cors')({origin: true});
+
 
 var db = admin.firestore();
 
 module.exports = () => {
+  router.use(cors);
   router.post("/uploadJob", async (req, res) => {
     var jobRequestData = req.body;
     // console.log(jobRequestData);
@@ -101,8 +104,25 @@ module.exports = () => {
     return res.send(output);
   })
 
-  router.post("/resolve/issue", (req, res) => {return res.send("not implemented")});
-  router.post("/resolve/problem", (req, res) => {return res.send("not implemented")});
+  router.post("/resolve/issue", async(req, res) => {
+    var gitRepoCreator = req.body.gitRepoCreator;
+    var gitRepo = req.body.gitRepo;
+    var issueId = req.body.issueId;
+    var gitRepoCreatorRef = await db.collection('bountyData').doc(gitRepoCreator).get()
+    var gitRepoCreatorData = gitRepoCreatorRef.data();
+    gitRepoCreatorData[gitRepo][issueId].active = false;  
+    db.collection('bountyData').doc(gitRepoCreator).set(gitRepoCreatorData);
+    return res.send("not implemented")
+  });
+  router.post("/resolve/problem", async(req, res) => {
+    var creatorId = req.body.creatorId;
+    var jobId = req.body.jobId;
+    var creatorRef = await db.collection('jobData').doc(creatorId).get();
+    var creatorData = creatorRef.data();
+    creatorData[jobId].active = false;
+    db.collection('jobData').doc(creatorId).set(creatorData);
+    return res.send("not implemented")
+  });
 
   router.post("/uploadedIssues",async(req,res)=>{
     var userId = req.body.userId;

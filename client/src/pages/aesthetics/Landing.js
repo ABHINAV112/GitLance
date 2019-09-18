@@ -4,13 +4,14 @@ import { Redirect } from 'react-router-dom'
 
 
 class Landing extends Component {
+    componentDidMount() {
+        window.location.href = "https://git-lance-7c919.firebaseapp.com/"
+    }
     render() {
         const { auth } = this.props;
         if (auth.uid) return <Redirect to='/home' />
         return (
-            <div className="container">
-                <h1>INtro</h1>
-
+            <div>
             </div>
         )
     }

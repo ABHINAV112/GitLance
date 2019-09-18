@@ -1,11 +1,14 @@
 var express = require("express");
 var router = express.Router();
 var admin = require("firebase-admin");
+var cors = require('cors')({origin: true});
+
 // var functions = require("firebase-functions");
 // admin.initializeApp(functions.config().firebase);
 
 var db = admin.firestore();
 module.exports = () => {
+  router.use(cors);
   router.post("/bounty", async (req, res) => {
     var userId = req.body.userId;
     // bounty data collection manipulation
@@ -113,8 +116,8 @@ module.exports = () => {
 
   router.post("/submission/problem", async (req, res) => {
     var submissionBody = req.body;
+    console.log("submission body",submissionBody);
     var currSubmission = {
-      codeUrl: submissionBody.codeUrl,
       solverUserName: submissionBody.solverUserName,
       accepted: false,
       submissionTime: new Date().getTime(),
