@@ -4,23 +4,23 @@
 
 Gitlance is a website where freelancers can work on jobs uploaded by a startup/individuals. <i>This platform was built to prevent scamming</i>. The startup can run test cases on the uploaded code but will not be able to look at the code, until they pay the freelancer. Check out the website [here](https://git-lance.firebaseapp.com)
 
-#### Homepage
+### Homepage
 
-![Gitlance Home Page](pictures/homepage.gif)
+![Gitlance Home Page](pictures/Gilance-HomePage.png)
 
-#### Your feed
+### Your feed
 
 ![Gitlance Feed Page](pictures/yourfeed.gif)
 
-#### Solution Upload
+### Solution Upload
 
 ![Gitlance Solution Upload](pictures/solutionupload.gif)
 
-#### Scorecard
+### Scorecard
 
 ![Gitlance Scorecard](pictures/scorecard.gif)
 
-#### Company buying your code
+### Company buying your code
 
 ![Gitlance company buying](pictures/company.gif)
 
