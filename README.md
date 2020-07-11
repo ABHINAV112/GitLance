@@ -2,7 +2,7 @@
 
 ## What is it?
 
-Gitlance is a website where freelancers can work on jobs uploaded by a startup/individuals. <i>This platform was built to prevent scamming</i>. The startup can run test cases on the uploaded code but will not be able to look at the code, until they pay the freelancer. Check out the website [here](https://git-lance.firebaseapp.com)
+Gitlance is a website where freelancers can work on jobs uploaded by a startup/individuals. <i>This platform was built to prevent scamming</i>. The startup can run test cases on the uploaded code but will not be able to look at the code, until they pay the freelancer. Check out the website [here](https://git-lance.firebaseapp.com) . The website currently not being hosted anymore :(
 
 ### Homepage
 
