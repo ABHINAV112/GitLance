@@ -1,4 +1,4 @@
-# [Gitlance](https://git-lance.firebaseapp.com)
+# Gitlance
 
 ## What is it?
 
